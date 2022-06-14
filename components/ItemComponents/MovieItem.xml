@@ -1,0 +1,87 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<component name = "MovieItem" extends = "Group" initialFocus="itemPoster">
+ 
+  <interface> 
+    <field id = "itemContent" type = "node" alwaysnotify="true" onChange = "showcontent"/>
+    <field id = "focusPercent" type = "float" onChange = "showfocus"/> 
+  </interface>
+ 
+  <script type = "text/brightscript" >
+
+    <![CDATA[
+
+    sub init()
+      m.top.id = "movieItem"
+      m.itemposter = m.top.findNode("itemPoster") 
+      m.itemmask = m.top.findNode("itemMask")
+      m.itemLabel = m.top.findNode("itemLabel")
+
+    end sub
+
+    sub showcontent()
+      print"m.top.itemContent: "m.top.itemContent
+      
+      itemContentArray = {}
+      if m.top.itemContent.image <> invalid and m.top.itemContent.name <> invalid
+        itemContentArray.data = {
+          poster: m.top.itemContent.image.medium,
+          title: m.top.itemContent.name,
+        }
+      else
+        itemContentArray.data = {
+          poster: "pkg:/images/channel-poster_hd.png",
+          title: "defaul name",
+        }
+      end if
+
+      m.itemLabel.text = itemContentArray.data.title
+      print"m.itemLabel.text: "m.itemLabel.text
+      
+      m.itemPoster.uri = itemContentArray.data.poster
+      print"m.itemPoster.uri: "m.itemPoster.uri
+    end sub
+
+    ]]>
+
+  </script>
+
+  <children >
+
+    <Poster 
+      id = "itemPoster" 
+      width = "200" 
+      height = "200"
+      loadingBitmapUri = "pkg:/images/backgrounds/bg.png"
+      failedBitmapUri = "pkg:/images/backgrounds/bg.png" >
+
+      <Rectangle 
+        id = "itemMask" 
+        width = "200" 
+        height = "200" 
+        opacity = "0" />
+
+        <Rectangle
+          id="itemLabelBackground"
+          color="#000000"
+          width="200"
+          height="45"
+          opacity="0.80" 
+          visible="true"
+          blendingEnabled = "true"
+          translation="[0,156]" />
+
+        <Label
+          id="itemLabel"
+          height="10"
+          width="150"
+          font="font:SmallestSystemFont"
+          horizAlign = "center"
+          vertAlign = "center"
+          translation="[20,175]" />
+
+    </Poster>
+
+  </children>
+
+</component>

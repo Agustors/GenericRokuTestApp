@@ -1,0 +1,112 @@
+sub init()
+
+    'Read Base URL From config file
+    fs = CreateObject("roFileSystem")
+    if fs.Exists("pkg:/configs/config.json")
+        fileInStr = ReadAsciiFile("pkg:/configs/config.json") 'File in String
+        fileInJson = ParseJSON(fileInStr)
+        m.baseUrl = fileInJson.API_BASE_URL
+        m.posterPathBaseUrl = fileInJson.POSTER_PATH_BASE_URL
+        'm.posterPathBaseUrl = fileInJson.AMAZON_AWS 'Wunderman Thompson
+        print " " 
+        print "m.baseURL: " m.baseUrl
+        print " " 
+    else
+        m.baseUrl = ""
+    end if
+    print "API Base Url is: " m.baseUrl
+    m.top.functionName = "getcontent"
+end sub
+
+sub getcontent()
+    apiCallConfig = getAPICallConfig(m.top.callId)
+    if apiCallConfig = invalid then return 'Avoid crash the app if callId is not set properly
+
+    'ContentType indicates if we will have a list of items of apiCallConfig.ContentNodeType or just an item of apiCallConfig.ContentNodeType 
+    if apiCallConfig.contentType = "ContentNodeList" then
+        content = createObject("roSGNode", "ContentNode")
+    else
+        content = createObject("roSGNode", apiCallConfig.ContentNodeType)
+    end if
+
+    urlTransferObj = createObject("roUrlTransfer")
+    
+    'Process parameters if applicable
+    parameters = ""
+    if m.top.callParams <> invalid then
+        callParams = m.top.callParams
+        m.top.callParams = invalid
+        'If we receive parameters for the call we check if that is valid for this call
+        paramsArray=[]
+        if apiCallConfig.parameters <> invalid and apiCallConfig.parameters.Count() > 0 then
+            for each paramKey in callParams
+                'If its a valid parameter
+                if apiCallConfig.parameters[paramKey] <> invalid and callParams[paramKey] <> invalid then
+                    paramsArray.push(paramKey+"="+urlTransferObj.escape(callParams[paramKey]))
+                end if
+            end for
+        end if
+        
+        if paramsArray.Count() > 0 then
+            parameters = paramsArray.join("&")
+            parameters = "?" + parameters
+        end if
+
+    end if
+
+    print "Call Endpoint: "+m.baseUrl+apiCallConfig.endpoint+parameters
+    print "parameters: "parameters
+
+    urlTransferObj.SetCertificatesFile("common:/certs/ca-bundle.crt")
+
+    urlTransferObj.InitClientCertificates()
+    urlTransferObj.setUrl(m.baseUrl+apiCallConfig.endpoint+parameters)
+    
+    response = urlTransferObj.getToString()
+    print"response: " response
+    
+    if response <> invalid then 
+        
+        jsonResponse = parseJSON(response)
+        response = invalid
+
+    end if
+    'm.top.content = content
+        PopularMoviesRow = createObject("roSGNode", "ContentNode")
+        PopularMoviesRow.id = "PopularMoviesRow"
+        for each item in JsonResponse
+            child = PopularMoviesRow.CreateChild("ContentNode")
+            child.addFields(item)
+        end for
+        m.top.content = PopularMoviesRow
+end sub
+
+function getAPICallConfig(callId)
+
+    apiCallsList = {
+        
+        "shows": {
+            "endpoint" : "/shows",
+            "contentNodeType":"ShowsContentNode",
+            "contentType":"ContentNodeList",
+        },
+        "seasons": {
+            "endpoint" : "/shows/1/seasons",
+            "contentNodeType":"ShowsContentNode",
+            "contentType":"ContentNodeList",
+        },
+        "episodes": {
+            "endpoint" : "/seasons/1/episodes",
+            "contentNodeType":"ShowsContentNode",
+            "contentType":"ContentNodeList",
+        },
+        "cast": {
+            "endpoint" : "/shows/1/cast",
+            "contentNodeType":"ShowsContentNode",
+            "contentType":"ContentNodeList",
+        }
+    }
+
+    return apiCallsList[callId]
+        
+end function

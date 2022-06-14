@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<component name = "APITask" extends = "Task" >
+ 
+  <interface>
+    <field id = "callId" type = "string" />
+    <field id = "callParams" type="assocarray" />
+    <field id = "content" type = "node" />
+  </interface> 
+
+  <script type = "text/brightscript" uri="./ApiTask.brs" />
+
+</component>

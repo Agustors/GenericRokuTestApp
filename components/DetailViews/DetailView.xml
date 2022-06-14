@@ -1,0 +1,70 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<component name = "DetailView" extends = "BaseView" initialFocus="playButton">
+
+    <interface> 
+        <field id = "itemContent" type = "node" alwaysnotify="true" onChange = "setContent"/>
+    </interface>
+
+    <script type="text/brightscript" uri="./DetailView.brs"/>
+
+    <children>
+
+        <Poster 
+            id = "assetImage" 
+            width = "235" 
+            height = "300" 
+            translation = "[120,155]" 
+            uri = "m.top.itemContent.poster_path"/>
+            
+    <Group translation = "[50,80]">
+        
+        <Label 
+            id = "assetTitle" 
+            translation = "[365,74]"
+            font="font:MediumBoldSystemFont"
+            text = "Title:"
+            color = "0x72D7EEFF"/>
+        
+        <Label 
+            id = "assetTitleText" 
+            translation = "[430,74]"
+            font="font:MediumBoldSystemFont"
+            text = ""
+            color = "0xFFFFFFFF"/>
+
+        <Group translation = "[0,8]">
+        
+            <Label 
+                id = "assetDescription" 
+                translation = "[365,120]"
+                font="font:MediumBoldSystemFont"
+                text = "Description:"
+                color = "0x72D7EEFF"/>
+
+            <Label 
+                id = "assetDescriptionText" 
+                width = "800"
+                height = "300" 
+                translation = "[365,170]"
+                font="font:SmallestSystemFont"
+                horizAlign = "left"
+                vertAlign = "top"
+                wrap = "true"/>
+        
+        </Group>
+        
+    </Group>
+
+    <PlayButton 
+            id = "playButton"
+            text = "Play Movie"
+            focusedTextColor = "0x262626ff"
+            height = "70"
+            focusedIconUri = "pkg:/images/playback_buttons/btt_play_white.png"
+            iconUri = "pkg:/images/playback_buttons/btt_play_white.png"
+            translation = "[115,490]" />
+
+    </children>
+
+</component>
