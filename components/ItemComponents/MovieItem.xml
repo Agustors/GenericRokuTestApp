@@ -1,6 +1,6 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 
-<component name = "MovieItem" extends = "Group" initialFocus="itemPoster">
+<component name = "RowListItem" extends = "Group" initialFocus="itemPoster">
  
   <interface> 
     <field id = "itemContent" type = "node" alwaysnotify="true" onChange = "showcontent"/>
@@ -12,7 +12,7 @@
     <![CDATA[
 
     sub init()
-      m.top.id = "movieItem"
+      m.top.id = "RowListItem"
       m.itemposter = m.top.findNode("itemPoster") 
       m.itemmask = m.top.findNode("itemMask")
       m.itemLabel = m.top.findNode("itemLabel")

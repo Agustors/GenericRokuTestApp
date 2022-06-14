@@ -1,13 +1,41 @@
 sub init()
     print "Init AssetDetailView"
-    m.playButton = m.top.findNode("playButton")
+    'Actors Label
+    m.actorsLabel = m.top.findNode("actorsLabel")
+    m.actorsLabel.font.size=30
+    m.actorsLabel.color="0x72D7EEFF"
+
     m.assetTitleText = m.top.findNode("assetTitleText")
     m.assetImage = m.top.findNode("assetImage")
     m.assetDescriptionText = m.top.findNode("assetDescriptionText")
     m.assetDescription = m.top.findNode("assetDescription")
+
     m.playButton = m.top.findNode("playButton")
     m.playButton.observeField("buttonSelected", "onShowVodButtonSelected")
+    
+    m.actorsRowList = m.top.findNode("actorsRowList")
 
+    'ApiTask
+    m.apiTask = CreateObject("roSGNode","ApiTask")
+    m.apiTask.observeField("content","setActorsRowListContent")
+    executeCastAPICall()
+
+end sub
+
+sub executeCastAPICall()
+    m.apiTask.callID = "Cast"
+    m.apiTask.control = "RUN"
+end sub
+
+sub setActorsRowListContent(ev)
+    data = ev.getData()
+    actorsRowListContent = CreateObject("roSGNode","ContentNode")
+    actorsRowListContent.appendChild(data)
+    m.actorsRowList.content = actorsRowListContent
+    m.actorsRowList.visible = true
+    m.actorsRowList.focusable = true
+    m.actorsRowList.setFocus(true)
+    ' stop
 end sub
 
 sub onButtonSelectedChanged(ev)

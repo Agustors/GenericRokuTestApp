@@ -10,14 +10,15 @@
 
     <children>
 
+            
+    <Group id="imageDescriptionButtonGroup" translation = "[0,0]">
+        
         <Poster 
             id = "assetImage" 
             width = "235" 
             height = "300" 
             translation = "[120,155]" 
             uri = "m.top.itemContent.poster_path"/>
-            
-    <Group translation = "[50,80]">
         
         <Label 
             id = "assetTitle" 
@@ -64,6 +65,34 @@
             focusedIconUri = "pkg:/images/playback_buttons/btt_play_white.png"
             iconUri = "pkg:/images/playback_buttons/btt_play_white.png"
             translation = "[115,490]" />
+
+    <Group id="actorsGroup" translation = "[0,385]">
+        <Label 
+            id="actorsLabel" 
+            text = "Actors"
+            width = "0" 
+            height = "80" 
+            horizAlign = "left"
+            vertAlign ="center"
+            font="font:MediumBoldSystemFont"
+            translation = "[0,0]"
+            />
+
+        <Rowlist 
+            id="actorsRowList"
+            itemComponentName = "RowListItem" 
+            itemSize = "[1216,240]" 
+            rowItemSize = "[[200, 200]]"
+            rowItemSpacing = "[[20, 0]]"
+            showRowCounter = "true"
+            rowCounterRightOffset = "2.0"
+            drawFocusFeedback = "true"
+            drawFocusFeedbackOnTop = "true"
+            vertFocusAnimationStyle = "fixedFocusWrap" 
+            rowFocusAnimationStyle = "floatingfocus"   
+            translation = "[0,100]"
+        />
+    </Group>
 
     </children>
 

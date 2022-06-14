@@ -18,7 +18,7 @@
 
 	<Rowlist 
 		id="popularMoviesRowList"
-		itemComponentName = "MovieItem" 
+		itemComponentName = "RowListItem" 
 		itemSize = "[1216,240]" 
 		rowItemSize = "[[200, 200]]"
 		rowItemSpacing = "[[20, 0]]"
@@ -29,32 +29,6 @@
 		vertFocusAnimationStyle = "fixedFocusWrap" 
 		rowFocusAnimationStyle = "floatingfocus"   
 		translation = "[50,100]"
-	/>
-
-	<Label 
-	  	id="popularMoviesLabel" 
-      	text = "Actors"
-      	width = "0" 
-      	height = "80" 
-      	horizAlign = "left"
-      	vertAlign ="center"
-		font="font:MediumBoldSystemFont"
-		translation = "[64,220]"
-      	/>
-
-	<Rowlist 
-		id="popularMoviesRowList"
-		itemComponentName = "MovieItem" 
-		itemSize = "[1216,240]" 
-		rowItemSize = "[[200, 200]]"
-		rowItemSpacing = "[[20, 0]]"
-		showRowCounter = "true"
-		rowCounterRightOffset = "2.0"
-		drawFocusFeedback = "true"
-		drawFocusFeedbackOnTop = "true"
-		vertFocusAnimationStyle = "fixedFocusWrap" 
-		rowFocusAnimationStyle = "floatingfocus"   
-		translation = "[50,300]"
 	/>
 
 	</children>
