@@ -32,9 +32,11 @@ sub setActorsRowListContent(ev)
     actorsRowListContent = CreateObject("roSGNode","ContentNode")
     actorsRowListContent.appendChild(data)
     m.actorsRowList.content = actorsRowListContent
+    m.actorsRowList.content.addfields({"contentType":"actorsRowListContent"})
     m.actorsRowList.visible = true
     m.actorsRowList.focusable = true
     m.actorsRowList.setFocus(false)
+    'stop
 end sub
 
 sub onButtonSelectedChanged(ev)
