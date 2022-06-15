@@ -34,8 +34,7 @@ sub setActorsRowListContent(ev)
     m.actorsRowList.content = actorsRowListContent
     m.actorsRowList.visible = true
     m.actorsRowList.focusable = true
-    m.actorsRowList.setFocus(true)
-    ' stop
+    m.actorsRowList.setFocus(false)
 end sub
 
 sub onButtonSelectedChanged(ev)

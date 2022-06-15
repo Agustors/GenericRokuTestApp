@@ -11,13 +11,13 @@
     <children>
 
             
-    <Group id="imageDescriptionButtonGroup" translation = "[0,0]">
+    <Group id="detailsGroup" translation = "[0,0]">
         
         <Poster 
             id = "assetImage" 
             width = "235" 
             height = "300" 
-            translation = "[120,155]" 
+            translation = "[75,75]" 
             uri = "m.top.itemContent.poster_path"/>
         
         <Label 
@@ -34,39 +34,38 @@
             text = ""
             color = "0xFFFFFFFF"/>
 
-        <Group translation = "[0,8]">
-        
-            <Label 
-                id = "assetDescription" 
-                translation = "[365,120]"
-                font="font:MediumBoldSystemFont"
-                text = "Description:"
-                color = "0x72D7EEFF"/>
+        <Label 
+            id = "assetDescription" 
+            translation = "[365,120]"
+            font="font:MediumBoldSystemFont"
+            text = "Description:"
+            color = "0x72D7EEFF"/>
 
-            <Label 
-                id = "assetDescriptionText" 
-                width = "800"
-                height = "300" 
-                translation = "[365,170]"
-                font="font:SmallestSystemFont"
-                horizAlign = "left"
-                vertAlign = "top"
-                wrap = "true"/>
+        <Label 
+            id = "assetDescriptionText" 
+            width = "800"
+            height = "300" 
+            translation = "[365,170]"
+            font="font:SmallestSystemFont"
+            horizAlign = "left"
+            vertAlign = "top"
+            wrap = "true"/>
         
-        </Group>
-        
+        <PlayButton 
+                id = "playButton"
+                text = ""
+                focusedTextColor = "0x262626ff"
+                height = "70"
+                minwidth = "50"
+                maxwidth = "100"
+                focusedIconUri = "pkg:/images/playback_buttons/btt_play_white.png"
+                iconUri = "pkg:/images/playback_buttons/btt_play_white.png"
+                translation = "[135,200]" />
+
     </Group>
 
-    <PlayButton 
-            id = "playButton"
-            text = "Play Movie"
-            focusedTextColor = "0x262626ff"
-            height = "70"
-            focusedIconUri = "pkg:/images/playback_buttons/btt_play_white.png"
-            iconUri = "pkg:/images/playback_buttons/btt_play_white.png"
-            translation = "[115,490]" />
 
-    <Group id="actorsGroup" translation = "[0,385]">
+    <Group id="actorsGroup" translation = "[75,360]">
         <Label 
             id="actorsLabel" 
             text = "Actors"
@@ -75,7 +74,7 @@
             horizAlign = "left"
             vertAlign ="center"
             font="font:MediumBoldSystemFont"
-            translation = "[0,0]"
+            translation = "[5,20]"
             />
 
         <Rowlist 
@@ -90,7 +89,7 @@
             drawFocusFeedbackOnTop = "true"
             vertFocusAnimationStyle = "fixedFocusWrap" 
             rowFocusAnimationStyle = "floatingfocus"   
-            translation = "[0,100]"
+            translation = "[0,70]"
         />
     </Group>
 
