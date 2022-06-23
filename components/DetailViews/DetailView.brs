@@ -35,8 +35,7 @@ sub setActorsRowListContent(ev)
     m.actorsRowList.content.addfields({"contentType":"actorsRowListContent"})
     m.actorsRowList.visible = true
     m.actorsRowList.focusable = true
-    m.actorsRowList.setFocus(false)
-    'stop
+    m.actorsRowList.setFocus(true)
 end sub
 
 sub onButtonSelectedChanged(ev)

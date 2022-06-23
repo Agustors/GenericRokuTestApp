@@ -80,7 +80,7 @@
         <Rowlist 
             id="actorsRowList"
             itemComponentName = "RowListItem" 
-            itemSize = "[1216,240]" 
+            itemSize = "[1190,240]" 
             rowItemSize = "[[200, 200]]"
             rowItemSpacing = "[[20, 0]]"
             showRowCounter = "true"

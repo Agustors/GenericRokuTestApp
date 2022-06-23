@@ -4,7 +4,7 @@
 
 sub init()
     print "Init MainScene"
-    m.top.backgroundUri = "pkg:/images/backgrounds/bg1.jpg"
+    m.top.backgroundUri = "pkg:/images/backgrounds/bg1.png"
     createFirstScreen()
 end sub
 
