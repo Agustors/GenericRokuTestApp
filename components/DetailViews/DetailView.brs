@@ -20,11 +20,27 @@ sub init()
     m.apiTask.observeField("content","setActorsRowListContent")
     executeCastAPICall()
 
+    'RowList
+    m.actorsRowList = m.top.findNode("actorsRowList")
+    m.actorsRowList.observeField("rowItemSelected","onActorsRowListItemSelectedChanged")
+    ' m.actorsRowList.observeField("rowItemFocused","onItemFocusedChanged")
+
 end sub
 
 sub executeCastAPICall()
     m.apiTask.callID = "Cast"
     m.apiTask.control = "RUN"
+end sub
+
+sub onActorsRowListItemSelectedChanged(ev)
+    content = ev.getRoSGNode().content
+    row = ev.getData()[0]
+    item = ev.getData()[1]
+    selectedItemContent = content.getChild(row).getChild(item)
+    if content <> invalid and selectedItemContent <> invalid and m.top.getParent() <> invalid then
+        'm.top.getParent() is the ViewManager component
+        m.top.getParent().selectedContentNode = selectedItemContent
+    end if
 end sub
 
 sub setActorsRowListContent(ev)
@@ -50,23 +66,36 @@ sub setContent(ev)
     m.top.itemContent = data
     print"assetDetailView showContent: "m.top.itemContent
     
-    'code to delete html tags present in description text
-    descriptionStr = data.summary
-    comboReplaceCases = [["<b>",""], ["</b>",""], ["<p>",""], ["</p>",""], ["<i>",""], ["</i>",""], ["<br />",""], ["/"," "]]
-    for each combo in comboReplaceCases
-        descriptionStr = descriptionStr.replace(combo[0],combo[1])
-    end for
-    
-    itemContentArray = {}
-    itemContentArray.data = {
-        title: data.name,
-        poster: data.image.original,
-        description: descriptionStr
-    }
+    if data <> invalid and type(data.person) = "roAssociativeArray"
+        itemContentArray = {}
+        itemContentArray.data = {
+            title: data.person.name,
+            poster: data.person.image.medium,
+            'description: descriptionStr
+        }
+    else
+        'code to delete html tags present in description text
+        descriptionStr = data.summary
+        comboReplaceCases = [["<b>",""], ["</b>",""], ["<p>",""], ["</p>",""], ["<i>",""], ["</i>",""], ["<br />",""], ["/"," "]]
+        for each combo in comboReplaceCases
+            descriptionStr = descriptionStr.replace(combo[0],combo[1])
+        end for
+        
+        itemContentArray = {}
+        itemContentArray.data = {
+            title: data.name,
+            poster: data.image.original,
+            description: descriptionStr
+        }
+    end if
     
     m.assetTitleText.text = itemContentArray.data.title
     m.assetImage.uri = itemContentArray.data.poster
-    m.assetDescriptionText.text = itemContentArray.data.description
+    if itemContentArray.data.description = invalid
+        m.assetDescriptionText.text = ""
+    else
+        m.assetDescriptionText.text = itemContentArray.data.description
+    end if
     
     if itemContentArray.data.description = invalid or itemContentArray.data.description = ""
         m.assetDescriptionText.text = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."

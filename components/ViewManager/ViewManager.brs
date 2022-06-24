@@ -28,9 +28,9 @@ function onKeyEvent(key as String, press as Boolean) as Boolean
   if press then
     if (key = "back") then
       handled = restorePreviousView()
-    else if (key = "options")
-      showView("SearchView")
-      handled = true
+    ' else if (key = "options")
+    '   showView("SearchView")
+    '   handled = true
     end if
   end if
   return handled
@@ -38,8 +38,8 @@ end function
 
 function showView(viewName, itemContent = invalid)
 
-    if canCreateView(viewName) then
-        
+    'if canCreateView(viewName) then
+        'stop
         storePreviousView()
         
         m.currentView = m.top.CreateChild(viewName) 'Add each child view as needed, PopularMoviesView as first view
@@ -55,7 +55,7 @@ function showView(viewName, itemContent = invalid)
         end if
 
         m.currentView.setFocus(true) 'Set Focus in the View
-    end if
+    'end if
 
 end function
 
