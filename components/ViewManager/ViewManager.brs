@@ -5,6 +5,7 @@ sub init()
         PopularMoviesView: false
         DetailView: false
         VideoView: false
+        FullScreenView: false
     }
     m.viewStack = [] 'Field to store the previous screen in the app
     showView("PopularMoviesView") 'Show/Create the first view of the app
@@ -15,7 +16,11 @@ end sub
 
 sub onSelectedContentNodeChanged(ev)
     print"onSelectedContentNodeChanged(ev): "ev
-    showView("DetailView",ev.getData())
+    if ev.getData().subtype() = "FullScreenView"
+        showView("FullScreenView",ev.getData().content) 'display the fullscreen view
+    else     
+        showView("DetailView",ev.getData())
+    end if
 end sub
 
 sub onPlayContentChanged(ev)

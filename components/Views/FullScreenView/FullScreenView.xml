@@ -7,26 +7,26 @@
     <script type = "text/brightscript" uri="./FullScreenView.brs"/>
     
     <children>
-        <Rectangle id="background" color="0x1c2434" blendingEnabled = "true" visible="true" width="1920" height="1080" />
+        <Rectangle id="background" color="0x000000" opacity = "0.9" blendingEnabled = "true" visible="true" width="1920" height="1080" />
         <LayoutGroup id="assetLayoutGroup" translation="[260, 114]" itemSpacings="[80, 80]">
             <Poster 
                 id = "image" 
                 width = "235" 
                 height = "300" 
-                translation = "[75,75]" 
+                translation = "[0,75]" 
                 uri = "pkg:/images/channel-poster_hd.png"/>
             
             <Label 
                 id = "imageTitle" 
-                translation = "[365,74]"
+                translation = "[0,74]"
                 text = "Title:"
                 color = "0x72D7EEFF"/>
             
             <Label 
                 id = "description" 
                 width = "800"
-                height = "300" 
-                translation = "[365,170]"
+                height = "50" 
+                translation = "[0,170]"
                 horizAlign = "left"
                 vertAlign = "top"
                 wrap = "true"/> 

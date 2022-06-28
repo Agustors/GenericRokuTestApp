@@ -42,11 +42,12 @@ sub onActorsRowListItemSelectedChanged(ev)
     fullScreenView.visible = true
     fullScreenView.focusable = true
     fullScreenView.setFocus(true)
-    ' if content <> invalid and selectedItemContent <> invalid and m.top.getParent() <> invalid then
-    '     'm.top.getParent() is the ViewManager component
-    '     m.top.getParent().selectedContentNode = fullScreenView
-    ' end if
-    m.top.appendChild(fullScreenView)
+    if content <> invalid and selectedItemContent <> invalid and m.top.getParent() <> invalid then
+        'm.top.getParent() is the ViewManager component
+        m.top.getParent().selectedContentNode = fullScreenView
+    end if
+    'm.top.appendChild(fullScreenView)
+    'stop
 end sub
 
 sub setActorsRowListContent(ev)
