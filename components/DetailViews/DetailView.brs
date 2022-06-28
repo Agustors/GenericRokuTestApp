@@ -37,10 +37,16 @@ sub onActorsRowListItemSelectedChanged(ev)
     row = ev.getData()[0]
     item = ev.getData()[1]
     selectedItemContent = content.getChild(row).getChild(item)
-    if content <> invalid and selectedItemContent <> invalid and m.top.getParent() <> invalid then
-        'm.top.getParent() is the ViewManager component
-        m.top.getParent().selectedContentNode = selectedItemContent
-    end if
+    fullScreenView = CreateObject("roSGNode","FullScreenView")
+    fullScreenView.content = selectedItemContent
+    fullScreenView.visible = true
+    fullScreenView.focusable = true
+    fullScreenView.setFocus(true)
+    ' if content <> invalid and selectedItemContent <> invalid and m.top.getParent() <> invalid then
+    '     'm.top.getParent() is the ViewManager component
+    '     m.top.getParent().selectedContentNode = fullScreenView
+    ' end if
+    m.top.appendChild(fullScreenView)
 end sub
 
 sub setActorsRowListContent(ev)
@@ -66,12 +72,11 @@ sub setContent(ev)
     m.top.itemContent = data
     print"assetDetailView showContent: "m.top.itemContent
     
-    if data <> invalid and type(data.person) = "roAssociativeArray"
+    if data.content <> invalid and data.content.person <> invalid and data.content.character <> invalid and type(data.content.person) = "roAssociativeArray" and type(data.content.character) = "roAssociativeArray"
         itemContentArray = {}
         itemContentArray.data = {
-            title: data.person.name,
-            poster: data.person.image.medium,
-            'description: descriptionStr
+            title: data.content.person.name,
+            poster: data.content.person.image.medium,
         }
     else
         'code to delete html tags present in description text

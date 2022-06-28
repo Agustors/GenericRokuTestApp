@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name = "FullScreenView" extends = "Group" >
+    <interface>
+        <field id="content" type="node" alwaysNotify="true" OnChange="OnNewContent" />
+    </interface>
+
+    <script type = "text/brightscript" uri="./FullScreenView.brs"/>
+    
+    <children>
+        <Rectangle id="background" color="0x1c2434" blendingEnabled = "true" visible="true" width="1920" height="1080" />
+        <LayoutGroup id="assetLayoutGroup" translation="[260, 114]" itemSpacings="[80, 80]">
+            <Poster 
+                id = "image" 
+                width = "235" 
+                height = "300" 
+                translation = "[75,75]" 
+                uri = "pkg:/images/channel-poster_hd.png"/>
+            
+            <Label 
+                id = "imageTitle" 
+                translation = "[365,74]"
+                text = "Title:"
+                color = "0x72D7EEFF"/>
+            
+            <Label 
+                id = "description" 
+                width = "800"
+                height = "300" 
+                translation = "[365,170]"
+                horizAlign = "left"
+                vertAlign = "top"
+                wrap = "true"/> 
+        </LayoutGroup>
+    </children>
+</component>

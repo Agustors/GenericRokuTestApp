@@ -38,8 +38,7 @@ end function
 
 function showView(viewName, itemContent = invalid)
 
-    'if canCreateView(viewName) then
-        'stop
+    if canCreateView(viewName) then 'commented for testing
         storePreviousView()
         
         m.currentView = m.top.CreateChild(viewName) 'Add each child view as needed, PopularMoviesView as first view
@@ -55,7 +54,7 @@ function showView(viewName, itemContent = invalid)
         end if
 
         m.currentView.setFocus(true) 'Set Focus in the View
-    'end if
+    end if
 
 end function
 
