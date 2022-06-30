@@ -8,13 +8,13 @@ sub init()
         m.baseUrl = fileInJson.API_BASE_URL
         m.posterPathBaseUrl = fileInJson.POSTER_PATH_BASE_URL
         'm.posterPathBaseUrl = fileInJson.AMAZON_AWS 'Wunderman Thompson
-        print " " 
-        print "m.baseURL: " m.baseUrl
-        print " " 
+        'print " " 
+        'print "m.baseURL: " m.baseUrl
+        'print " " 
     else
         m.baseUrl = ""
     end if
-    print "API Base Url is: " m.baseUrl
+    'print "API Base Url is: " m.baseUrl
     m.top.functionName = "getcontent"
 end sub
 
@@ -54,8 +54,8 @@ sub getcontent()
 
     end if
 
-    print "Call Endpoint: "+m.baseUrl+apiCallConfig.endpoint+parameters
-    print "parameters: "parameters
+    'print "Call Endpoint: "+m.baseUrl+apiCallConfig.endpoint+parameters
+    'print "parameters: "parameters
 
     urlTransferObj.SetCertificatesFile("common:/certs/ca-bundle.crt")
 
@@ -63,7 +63,7 @@ sub getcontent()
     urlTransferObj.setUrl(m.baseUrl+apiCallConfig.endpoint+parameters)
     
     response = urlTransferObj.getToString()
-    print"response: " response
+    ''print"response: " response
     
     if response <> invalid then 
         

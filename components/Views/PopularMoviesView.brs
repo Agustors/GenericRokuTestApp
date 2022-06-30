@@ -59,7 +59,7 @@ end sub
 
 sub onItemFocusedChanged(ev) 
     if m.apiTask.state = "run" then 
-        Print "Already fetching the next page.. "
+        'print "Already fetching the next page.. "
         return
     end if
     content = ev.getRoSGNode().content
@@ -70,7 +70,7 @@ sub onItemFocusedChanged(ev)
         previousPage = m.global.page.toInt()
         nextPage = (previousPage + 1).toStr()
         m.global.page = nextPage
-        print"nextPage: "nextPage
+        'print"nextPage: "nextPage
         callParams = {page: nextPage} 'next page
         executeShowsAPICall(callParams)
     end if

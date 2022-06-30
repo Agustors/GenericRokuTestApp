@@ -10,21 +10,20 @@ sub init()
     m.viewStack = [] 'Field to store the previous screen in the app
     showView("PopularMoviesView") 'Show/Create the first view of the app
     m.top.observeField("selectedContentNode","onSelectedContentNodeChanged")
-    print "m.top.observeField(playContent,onPlayContentChanged): "m.top.observeField("playContent","onPlayContentChanged")
+    'print "m.top.observeField(playContent,onPlayContentChanged): "m.top.observeField("playContent","onPlayContentChanged")
     m.top.observeField("playContent","onPlayContentChanged")
 end sub
 
 sub onSelectedContentNodeChanged(ev)
-    print"onSelectedContentNodeChanged(ev): "ev
     if ev.getData().subtype() = "FullScreenView"
-        showView("FullScreenView",ev.getData().content) 'display the fullscreen view
+        showView("FullScreenView",ev.getData()) 'display the fullscreen view
     else     
         showView("DetailView",ev.getData())
     end if
 end sub
 
 sub onPlayContentChanged(ev)
-    print"onPlayContentChanged(ev): "ev
+    'print"onPlayContentChanged(ev): "ev
     showView("VideoView", ev.getData())
 end sub
 
@@ -83,7 +82,7 @@ function restorePreviousView()
             'Here we put the creation status false to allow create the view again if necessary
             if m.viewControl.doesExist(m.currentView.subType()) then
                 m.viewControl[m.currentView.subType()] = false
-                print"m.currentView.subType(): "m.currentView.subType()
+                'print"m.currentView.subType(): "m.currentView.subType()
             end if
 
             m.previousStoredView = m.viewStack.Pop() 'Get previous view form the array and remove it from the stack

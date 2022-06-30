@@ -1,5 +1,5 @@
 sub init()
-    print "Init AssetDetailView"
+    'print "Init AssetDetailView"
     'Actors Label
     m.actorsLabel = m.top.findNode("actorsLabel")
     m.actorsLabel.font.size=30
@@ -38,15 +38,11 @@ sub onActorsRowListItemSelectedChanged(ev)
     item = ev.getData()[1]
     selectedItemContent = content.getChild(row).getChild(item)
     fullScreenView = CreateObject("roSGNode","FullScreenView")
-    fullScreenView.content = selectedItemContent
-    fullScreenView.visible = true
-    fullScreenView.focusable = true
-    fullScreenView.setFocus(true)
+    fullScreenView.itemContent = selectedItemContent
     if content <> invalid and selectedItemContent <> invalid and m.top.getParent() <> invalid then
         'm.top.getParent() is the ViewManager component
         m.top.getParent().selectedContentNode = fullScreenView
     end if
-    'm.top.appendChild(fullScreenView)
     'stop
 end sub
 
@@ -71,7 +67,7 @@ end sub
 sub setContent(ev)
     data = ev.getData()
     m.top.itemContent = data
-    print"assetDetailView showContent: "m.top.itemContent
+    'print"assetDetailView showContent: "m.top.itemContent
     
     if data.content <> invalid and data.content.person <> invalid and data.content.character <> invalid and type(data.content.person) = "roAssociativeArray" and type(data.content.character) = "roAssociativeArray"
         itemContentArray = {}
@@ -104,7 +100,7 @@ sub setContent(ev)
     end if
     
     if itemContentArray.data.description = invalid or itemContentArray.data.description = ""
-        m.assetDescriptionText.text = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+        m.assetDescriptionText.text = "Lorem Ipsum is simply dummy text of the 'printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown 'printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
     end if
     
 end sub

@@ -7,7 +7,7 @@ sub init()
   end sub
 
   sub showcontent()
-    print"m.top.itemContent: "m.top.itemContent
+    'print"m.top.itemContent: "m.top.itemContent
     
     itemContentArray = {}
     if m.top.itemContent.image <> invalid and m.top.itemContent.name <> invalid 'm.top.itemContent.contentType <> invalid and m.top.itemContent.contentType = "popularMoviesRowListContent"
@@ -28,8 +28,8 @@ sub init()
     end if
 
     m.itemLabel.text = itemContentArray.data.title
-    print"m.itemLabel.text: "m.itemLabel.text
+    'print"m.itemLabel.text: "m.itemLabel.text
     
     m.itemPoster.uri = itemContentArray.data.poster
-    print"m.itemPoster.uri: "m.itemPoster.uri
+    'print"m.itemPoster.uri: "m.itemPoster.uri
   end sub

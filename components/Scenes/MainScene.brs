@@ -3,7 +3,7 @@
 'Then create SearchView (without token we are not able to run Search API call)
 
 sub init()
-    print "Init MainScene"
+    'print "Init MainScene"
     m.top.backgroundUri = "pkg:/images/backgrounds/bg1.png"
     createFirstScreen()
 end sub

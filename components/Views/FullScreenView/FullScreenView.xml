@@ -1,35 +1,30 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<component name = "FullScreenView" extends = "Group" >
+<component name = "FullScreenView" extends = "BaseView" >
     <interface>
-        <field id="content" type="node" alwaysNotify="true" OnChange="OnNewContent" />
+        <field id="itemContent" type="node" alwaysNotify="true" OnChange="setContent" />
     </interface>
 
     <script type = "text/brightscript" uri="./FullScreenView.brs"/>
     
     <children>
-        <Rectangle id="background" color="0x000000" opacity = "0.9" blendingEnabled = "true" visible="true" width="1920" height="1080" />
-        <LayoutGroup id="assetLayoutGroup" translation="[260, 114]" itemSpacings="[80, 80]">
             <Poster 
-                id = "image" 
+                id = "actorImage" 
                 width = "235" 
                 height = "300" 
-                translation = "[0,75]" 
+                translation = "[480,75]" 
                 uri = "pkg:/images/channel-poster_hd.png"/>
             
             <Label 
-                id = "imageTitle" 
-                translation = "[0,74]"
+                id = "actorName" 
+                translation = "[530,400]"
                 text = "Title:"
                 color = "0x72D7EEFF"/>
-            
+
             <Label 
-                id = "description" 
-                width = "800"
-                height = "50" 
-                translation = "[0,170]"
-                horizAlign = "left"
-                vertAlign = "top"
-                wrap = "true"/> 
-        </LayoutGroup>
+                id = "actorCharacter" 
+                translation = "[530,440]"
+                text = "Title:"
+                color = "0x72D7EEFF"/> 
+             
     </children>
 </component>
