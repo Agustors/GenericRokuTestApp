@@ -2,7 +2,8 @@ sub init()
     'Actors asset
     m.actorImage = m.top.findNode("actorImage")
     m.actorName = m.top.findNode("actorName")
-    m.actorCharacter = m.top.findNode("actorCharacter")
+    m.actorCharacterName = m.top.findNode("actorCharacterName")
+    m.actorCharacterImage = m.top.findNode("actorCharacterImage")
 end sub
 
 sub setContent(ev)
@@ -11,20 +12,23 @@ sub setContent(ev)
     if data.itemContent <> invalid
         itemContentArray = {}
         itemContentArray.data = {
-            name: data.itemContent.person.name,
-            poster: data.itemContent.person.image.original
-            character: data.itemContent.character.name
+            actorName: data.itemContent.person.name,
+            actorPoster: data.itemContent.person.image.original
+            characterName: data.itemContent.character.name
+            characterPoster: data.itemContent.character.image.original
         }
     else 
         itemContentArray = {}
         itemContentArray.data = {
-            name: data.person.name,
-            poster: data.person.image.original
-            character: data.character.name
+            actorName: data.person.name,
+            actorPoster: data.person.image.original
+            characterName: data.character.name
+            characterPoster: data.character.image.original
         } 
     end if
     
-    m.actorImage.uri = itemContentArray.data.poster
-    m.actorName.text = itemContentArray.data.name
-    m.actorCharacter.text = itemContentArray.data.character
+    m.actorName.text = itemContentArray.data.actorName
+    m.actorImage.uri = itemContentArray.data.actorPoster
+    m.actorCharacterName.text = itemContentArray.data.characterName
+    m.actorCharacterImage.uri = itemContentArray.data.characterPoster
 end sub

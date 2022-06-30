@@ -11,18 +11,31 @@
                 id = "actorImage" 
                 width = "235" 
                 height = "300" 
-                translation = "[480,75]" 
+                translation = "[200,175]" 
                 uri = "pkg:/images/channel-poster_hd.png"/>
             
             <Label 
                 id = "actorName" 
-                translation = "[530,400]"
+                translation = "[200,500]"
                 text = "Title:"
                 color = "0x72D7EEFF"/>
+            
+            <Label 
+                id = "as" 
+                translation = "[600,335]"
+                text = "As"
+                color = "0x72D7EEFF"/>
+
+            <Poster 
+                id = "actorCharacterImage" 
+                width = "235" 
+                height = "300" 
+                translation = "[800,175]" 
+                uri = "pkg:/images/channel-poster_hd.png"/>
 
             <Label 
-                id = "actorCharacter" 
-                translation = "[530,440]"
+                id = "actorCharacterName" 
+                translation = "[800,500]"
                 text = "Title:"
                 color = "0x72D7EEFF"/> 
              
