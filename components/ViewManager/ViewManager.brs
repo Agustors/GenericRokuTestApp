@@ -89,6 +89,7 @@ function restorePreviousView()
             m.currentView = m.previousStoredView.view
             m.top.appendChild(m.currentView)
             if m.previousStoredView.focusedChild <> invalid then
+                m.previousStoredView.focusedChild.focusable = true 'Recover focus in the correct child in the view
                 m.previousStoredView.focusedChild.setFocus(true) 'Recover focus in the correct child in the view
             else
                 m.currentView.setFocus(true) 'Set focus in the recovered previous view

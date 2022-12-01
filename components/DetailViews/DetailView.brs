@@ -23,8 +23,14 @@ sub init()
     'RowList
     m.actorsRowList = m.top.findNode("actorsRowList")
     m.actorsRowList.observeField("rowItemSelected","onActorsRowListItemSelectedChanged")
-    ' m.actorsRowList.observeField("rowItemFocused","onItemFocusedChanged")
 
+    'FocusedChild
+    'm.top.observeField("FocusedChild","onFocusedChildChanged")
+
+end sub
+
+sub onFocusedChildChanged() 
+    m.top.setfocus(true)
 end sub
 
 sub executeCastAPICall()
