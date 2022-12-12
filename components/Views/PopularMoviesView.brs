@@ -1,7 +1,7 @@
 function init()
     m.top.setFocus(true)
 
-    'Title Label
+    'Title Label '''
     m.popularMoviesLabel = m.top.findNode("popularMoviesLabel")
     m.popularMoviesLabel.font.size=30
     m.popularMoviesLabel.color="0x72D7EEFF"

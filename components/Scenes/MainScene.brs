@@ -1,6 +1,6 @@
 'Flow
 'Get API Token
-'Then create SearchView (without token we are not able to run Search API call)
+'Then create SearchView (without token we are not able to run Search API call) ''''
 
 sub init()
     'print "Init MainScene"
