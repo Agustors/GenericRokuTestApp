@@ -2,10 +2,6 @@
 'Get API Token
 'Then create SearchView (without token we are not able to run Search API call)
 
-'''''''''
-' init: 
-' 
-'''''''''
 sub init()
     'print "Init MainScene"
     m.top.backgroundUri = "pkg:/images/backgrounds/bg1.png"

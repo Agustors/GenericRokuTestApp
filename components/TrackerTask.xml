@@ -1,5 +1,5 @@
 <?rokuml version="1.0" encoding="utf-8" ?>
-<!--********** Copyright 2019 Roku Corp. All Rights Reserved. **********-->
+<!--********** Copyright 2022 Roku Corp. All Rights Reserved. **********-->
 
 <component name="TrackerTask" extends="Task">
 
@@ -50,6 +50,7 @@
       <function name="UIThread_removeAllRulerLines"/>
   </interface>
 
+    
     
     
     
@@ -638,6 +639,178 @@ Sub SelectorView_UpdateViewPosition(event)
         node.boundingRect = boundingRect
     end if
 End Sub
+
+' RALE_SocketConnection - RALE Socket connection class constructor
+Function RALE_SocketConnection() as Object
+    this = {}
+
+    this.startConnection = SocketConnection_StartConnection
+
+    return this
+End Function
+
+' socketConnection - Starts socket connection. Keep alive while connection won't be closed
+' @param {object} addr - roSocketAddress
+' @param {object} messagePort - roMessagePort
+' @param {number} port - socket connection port
+' @param {array} buffer - buffer for socket packets
+' @param {object} handlersMap - map that contains all RALE commands handlers
+' @param {object} config - configuration constants
+' @return {string} - connection status
+Sub SocketConnection_StartConnection(addr, messagePort, port, buffer, handlersMap, config) as String
+    connections = {}
+    appManager = createObject("roAppManager")
+    screensaverTimer = CreateObject("roTimespan")
+    screensaverTimer.Mark()
+
+    addr.setPort(port)
+
+    tcpListen = CreateObject("roStreamSocket")
+    tcpListen.setMessagePort(messagePort)
+    tcpListen.setAddress(addr)
+    tcpListen.notifyReadable(true)
+    tcpListen.listen(4)
+
+    wasConnected = false
+
+    RALE_InfoLog("Start socket server on port " + FW_AsString(port))
+
+    while True
+
+        if not wasConnected then
+            event = wait(3000, messagePort)
+            if event = Invalid then
+                tcpListen.close()
+                RALE_WarningLog("No 'init' command received. Socket connection closed")
+                return "connection timeout"
+            end if
+        else
+            event = wait(config.commandTimeout, messagePort)
+        end if
+
+        ' Resets the screensaver timer
+        if screensaverTimer.TotalMilliseconds() > config.screensaverResetTimeout then
+            screensaverTimer.Mark()
+            appManager.UpdateLastKeyPressTime()
+        end if
+
+        ' ? type(event)
+        if type(event) = "roSocketEvent"
+            wasConnected = true
+            changedID = event.getSocketID()
+            if changedID = tcpListen.getID() and tcpListen.isReadable()
+                ' New
+                newConnection = tcpListen.accept()
+                if newConnection = Invalid
+                    RALE_WarningLog("Connection accept failed")
+                else
+                    RALE_InfoLog("Accepted new connection " + FW_AsString(newConnection.getID()))
+
+                    newConnection.notifyReadable(true)
+                    newConnection.setMessagePort(messagePort)
+                    connections[Stri(newConnection.getID())] = newConnection
+                end if
+            else
+                ' Activity on an open connection
+                connection = connections[Stri(changedID)]
+                closed = False
+                if connection.isReadable()
+                    str = RALE_ReceiveLargeString(connection)
+                    if str.len() > 0
+                        timer = CreateObject("roTimespan")
+                        timer.Mark()
+                        commandList = SocketConnection_ParseData(str)
+
+                        for i = 0 to commandList.Count() - 1
+                            SocketConnection_HandleCommand(commandList[i], handlersMap, connection, timer)
+                        end for
+                    end if
+                end if
+                if closed or not connection.eOK()
+                    connection.close()
+                    connections.delete(Stri(changedID))
+                    exit while
+                end if
+            end if
+        end if
+    end while
+
+    tcpListen.close()
+    for each id in connections
+        connections[id].close()
+    end for
+
+    RALE_InfoLog("Socket connection closed")
+
+    return "connection closed"
+End Sub
+
+' SocketConnection_HandleCommand - Handle socket connection command
+' @param {string} command - one socket command
+' @param {object} handlersMap - map that contains all RALE commands handlers
+' @param {object} connection - socket connection
+' @param {object} timer - socket connection timer
+Sub SocketConnection_HandleCommand(command, handlersMap, connection, timer) as Object
+    request = ParseJson(command)
+    buffer = CreateObject("roByteArray")
+    buffer[1024] = 0
+
+    if request <> Invalid then
+        response = {}
+        if request["command"] <> Invalid then
+
+            handler = handlersMap[request["command"]]
+            if handler <> Invalid then
+                RALE_DebugLog("Handling command: " + request["command"])
+                RALE_DebugLog("Received arguments: " + FW_AsString(request["args"]))
+
+                response = callCommand(handler, request["args"])
+            else
+                RALE_ErrorLog("No such command: " + request["command"])
+
+                response = getError("No such command")
+            end if
+        end if
+        id = request.uuid
+        idLen = FW_AsString(Len(id))
+        json = FormatJson(response)
+        res = "[start][uuid:" + idLen + "]" + id + json + "[end]"
+
+        RALE_SendLargeString(res, connection)
+        RALE_DebugLog("Command handled in: " + FW_AsString(timer.TotalMilliseconds()) + "ms")
+    end if
+End Sub
+
+' SocketConnection_ParseData - parse from string to array of commands
+' @param {string} request - request from js. Includes [start] and [end]
+' @return {array} - array of commands
+Sub SocketConnection_ParseData(request) as Object
+    commandList = SocketConnection_SplitOnStart(request)
+    if commandList[0].len() = 0 then
+        commandList.Delete(0)
+    end if
+
+    for i = 0 to commandList.Count() - 1
+        commandList[i] = SocketConnection_RemoveEnd(commandList[i])
+    end for
+
+    return commandList
+end Sub
+
+' SocketConnection_SplitOnStart - splits the request using the separator "[start]"
+' @param {string} request - request from js. Includes [start] and [end]
+' @return {array} - an array of the split token strings (not including the "[start]").
+Sub SocketConnection_SplitOnStart(request) as Object
+    return request.Split("[start]")
+end Sub
+
+' SocketConnection_RemoveEnd - remove "[end]" from the string
+' @param {string} command - socket command
+' @return {string} - command without [start] and [end]
+Sub SocketConnection_RemoveEnd(command) as Object
+    return command.Replace("[end]", "")
+end Sub
+
 
 
 ' getCommandMap - Defines map that contains all RALE commands handlers
@@ -1827,8 +2000,9 @@ Sub init()
 
     m.config = RALE_Config()
     m.logger = RALE_Logger(m.config.defaultLogLevel, m.config.logFormat)
+    m.socketConnection = RALE_SocketConnection()
     m.sceneBG = m.top.GetScene().getChild(0)
-    m.raleVersion = "2.2.18"
+    m.raleVersion = "3.2.0"
     m.sessionId = CreateObject("roDeviceInfo").GetRandomUUID()
 
     m.logger.info("Roku Advanced Layout Editor v." + m.raleVersion)
@@ -1873,137 +2047,10 @@ Sub tracker()
         end if
 
         if raleEnabled and port > m.config.minSocketPort and port < m.config.maxSocketPort then
-            socketConnection(addr, messagePort, port, buffer, handlersMap, m.config)
+            m.socketConnection.startConnection(addr, messagePort, port, buffer, handlersMap, m.config)
         end if
     end while
 
-End Sub
-
-' socketConnection - Starts socket connection. Keep alive while connection won't be closed
-' @param {object} addr - roSocketAddress
-' @param {object} messagePort - roMessagePort
-' @param {number} port - socket connection port
-' @param {array} buffer - buffer for socket packets
-' @param {object} handlersMap - map that contains all RALE commands handlers
-' @param {object} config - configuration constants
-' @return {string} - connection status
-Sub socketConnection(addr, messagePort, port, buffer, handlersMap, config) as String
-    connections = {}
-    appManager = createObject("roAppManager")
-    screensaverTimer = CreateObject("roTimespan")
-    screensaverTimer.Mark()
-
-    addr.setPort(port)
-
-    tcpListen = CreateObject("roStreamSocket")
-    tcpListen.setMessagePort(messagePort)
-    tcpListen.setAddress(addr)
-    tcpListen.notifyReadable(true)
-    tcpListen.listen(4)
-
-    wasConnected = false
-
-    RALE_InfoLog("Start socket server on port " + FW_AsString(port))
-
-    while True
-
-        if not wasConnected then
-            event = wait(3000, messagePort)
-            if event = Invalid then
-                tcpListen.close()
-                RALE_WarningLog("No 'init' command received. Socket connection closed")
-                return "connection timeout"
-            end if
-        else
-            event = wait(config.commandTimeout, messagePort)
-        end if
-
-        ' Resets the screensaver timer
-        if screensaverTimer.TotalMilliseconds() > config.screensaverResetTimeout then
-            screensaverTimer.Mark()
-            appManager.UpdateLastKeyPressTime()
-        end if
-
-        ' ? type(event)
-        if type(event) = "roSocketEvent"
-            wasConnected = true
-            changedID = event.getSocketID()
-            if changedID = tcpListen.getID() and tcpListen.isReadable()
-                ' New
-                newConnection = tcpListen.accept()
-                if newConnection = Invalid
-                    RALE_WarningLog("Connection accept failed")
-                else
-                    RALE_InfoLog("Accepted new connection " + FW_AsString(newConnection.getID()))
-
-                    newConnection.notifyReadable(true)
-                    newConnection.setMessagePort(messagePort)
-                    connections[Stri(newConnection.getID())] = newConnection
-                end if
-            else
-                ' Activity on an open connection
-                connection = connections[Stri(changedID)]
-                closed = False
-                if connection.isReadable()
-                    received = connection.receive(buffer, 0, 1024)
-                    if received > 0
-                        timer = CreateObject("roTimespan")
-                        timer.Mark()
-                        str = buffer.ToAsciiString().Left(received)
-                        request = ParseJson(str)
-                        buffer = CreateObject("roByteArray")
-                        buffer[1024] = 0
-
-                        if request <> Invalid then
-                            response = {}
-                            if request["command"] <> Invalid then
-
-                                handler = handlersMap[request["command"]]
-                                if handler <> Invalid then
-                                    RALE_DebugLog("Handling command: " + request["command"])
-                                    RALE_DebugLog("Received arguments: " + FW_AsString(request["args"]))
-
-                                    response = callCommand(handler, request["args"])
-                                else
-                                    RALE_ErrorLog("No such command: " + request["command"])
-
-                                    response = getError("No such command")
-                                end if
-                            end if
-                            id = request.uuid
-                            idLen = FW_AsString(Len(id))
-                            json = FormatJson(response)
-                            res = "[start][uuid:" + idLen + "]" + id + json + "[end]"
-
-                            resList = RALE_splitStringByLength(res, 3000)
-                            count = resList.count() - 1
-                            for i = 0 to count
-                                connection.SendStr(resList[i])
-                                sleep(20)
-                            end for
-                            RALE_DebugLog("Command handled in: " + FW_AsString(timer.TotalMilliseconds()) + "ms")
-                        end if
-                    else if received=0 ' client closed
-                        closed = True
-                    end if
-                end if
-                if closed or not connection.eOK()
-                    connection.close()
-                    connections.delete(Stri(changedID))
-                    exit while
-                end if
-            end if
-        end if
-    end while
-
-    tcpListen.close()
-    for each id in connections
-        connections[id].close()
-    end for
-
-    RALE_InfoLog("Socket connection closed")
-
-    return "connection closed"
 End Sub
 
 'IMPORTS=
@@ -2170,6 +2217,15 @@ Function FW_ValidStr(obj As Object) As String
 End Function
 
 '*************************************************
+' FW_IsHttpAgent - check if value contains roHttpAgent component
+' @param value As Dynamic
+' @return As Boolean - true if value contains roHttpAgent component, else return false
+'*************************************************
+Function FW_IsHttpAgent(value As Dynamic) As Boolean
+    Return FW_IsValid(value) And GetInterface(value, "ifHttpAgent") <> invalid
+End Function
+
+'*************************************************
 ' FW_AsString - convert input to String if this possible, else return empty string
 ' @param input As Dynamic
 ' @return As String - return converted string
@@ -2203,6 +2259,8 @@ Function FW_AsString(input As Dynamic) As String
             result = result + key + " : " + FW_AsString(input[key]) + ", "
         End For
         Return "{ " + Left(result, Len(result) - 2) + " }"
+    Else If FW_IsHttpAgent(input) Then
+        Return ""
     End If
 End Function
 
@@ -2739,6 +2797,42 @@ Function RALE_ErrorLog(message as String)
         status: "error"
     })
 End Function
+
+Function RALE_SendLargeString(stringResponse, connection as Object) as Boolean
+    data = CreateObject("roByteArray")
+    data.FromAsciiString(stringResponse)
+
+    size = data.count()
+    offset = 0
+    while size > 0
+        bytesWritten = connection.Send(data, offset, size)
+        if bytesWritten < 0 then
+            if not connection.eOK() then return false
+            sleep(20)
+        else
+            size -= bytesWritten
+            offset += bytesWritten
+        end if
+    end while
+    return true
+End Function
+
+Sub RALE_ReceiveLargeString(connection as Object, bytesLimit = 16 * 1024 as Integer, timeoutInMs = 10 as Integer) as String
+    data = ""
+    timespan = CreateObject("roTimespan")
+    while bytesLimit > data.len()
+        if connection.GetCountRcvBuf() > 0 then
+            data += connection.receiveStr(bytesLimit - data.len())
+        else
+            Sleep(1)
+        end if
+
+        if timespan.totalmilliseconds() >= timeoutInMs then
+            exit while
+        end if
+    end while
+    return data
+End Sub
 
 ]]>
 </script>

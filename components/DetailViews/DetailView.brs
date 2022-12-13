@@ -10,8 +10,9 @@ sub init()
     m.assetDescriptionText = m.top.findNode("assetDescriptionText")
     m.assetDescription = m.top.findNode("assetDescription")
 
-    m.playButton = m.top.findNode("playButton")
-    m.playButton.observeField("buttonSelected", "onShowVodButtonSelected")
+    ' m.playButton = m.top.findNode("playButton")
+    ' m.playButton.visible = false
+    ' m.playButton.observeField("buttonSelected", "onShowVodButtonSelected")
     
     m.actorsRowList = m.top.findNode("actorsRowList")
 
@@ -43,13 +44,15 @@ sub onActorsRowListItemSelectedChanged(ev)
     row = ev.getData()[0]
     item = ev.getData()[1]
     selectedItemContent = content.getChild(row).getChild(item)
-    fullScreenView = CreateObject("roSGNode","FullScreenView")
-    fullScreenView.itemContent = selectedItemContent
+    'stop
+    'fullScreenView = CreateObject("roSGNode","FullScreenView")
+    'fullScreenView.itemContent = selectedItemContent
     if content <> invalid and selectedItemContent <> invalid and m.top.getParent() <> invalid then
         'm.top.getParent() is the ViewManager component
-        m.top.getParent().selectedContentNode = fullScreenView
+        'm.top.getParent().selectedContentNode = fullScreenView
+        m.top.getParent().selectedContentNode = selectedItemContent
+        'stop
     end if
-    'stop
 end sub
 
 sub setActorsRowListContent(ev)
@@ -111,6 +114,6 @@ sub setContent(ev)
     
 end sub
 
-sub onShowVodButtonSelected() 
-    m.top.getParent().playContent = true
-end sub
+' sub onShowVodButtonSelected() 
+'     m.top.getParent().playContent = true
+' end sub

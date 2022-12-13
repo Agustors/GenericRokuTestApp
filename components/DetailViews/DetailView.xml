@@ -51,7 +51,7 @@
             vertAlign = "top"
             wrap = "true"/>
         
-        <PlayButton 
+        <!-- <PlayButton 
                 id = "playButton"
                 text = ""
                 focusedTextColor = "0x262626ff"
@@ -60,7 +60,7 @@
                 maxwidth = "100"
                 focusedIconUri = "pkg:/images/playback_buttons/btt_play_white.png"
                 iconUri = "pkg:/images/playback_buttons/btt_play_white.png"
-                translation = "[135,200]" />
+                translation = "[135,200]" /> -->
 
     </Group>
 

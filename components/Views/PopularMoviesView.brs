@@ -51,6 +51,7 @@ sub onItemSelectedChanged(ev)
     row = ev.getData()[0]
     item = ev.getData()[1]
     selectedItemContent = content.getChild(row).getChild(item)
+    'stop
     if content <> invalid and selectedItemContent <> invalid and m.top.getParent() <> invalid then
         'm.top.getParent() is the ViewManager component
         m.top.getParent().selectedContentNode = selectedItemContent

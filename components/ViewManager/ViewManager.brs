@@ -15,7 +15,9 @@ sub init()
 end sub
 
 sub onSelectedContentNodeChanged(ev)
-    if ev.getData().subtype() = "FullScreenView"
+    'stop
+    if ev.getData().character <> invalid and ev.getData().person <> invalid 
+        'stop
         showView("FullScreenView",ev.getData()) 'display the fullscreen view
     else     
         showView("DetailView",ev.getData())
@@ -46,18 +48,24 @@ function showView(viewName, itemContent = invalid)
         storePreviousView()
         
         m.currentView = m.top.CreateChild(viewName) 'Add each child view as needed, PopularMoviesView as first view
-        
+        'stop
         'Control the created views that must only be open one instance per moment
         if m.viewControl.doesExist(m.currentView.subType()) then
             m.viewControl[m.currentView.subType()] = true
         end if
         
         'Set content if view can receive a contentNode and if we received content to set on it
-        if itemContent <> invalid and m.currentView.hasField("itemContent") then
-            m.currentView.itemContent = itemContent
+        if itemContent <> invalid and m.currentView.hasField("itemContent") and m.currentView.hasField("itemContent") <> invalid then
+            if itemContent.subtype() = "FullScreenView"
+                content = itemContent.itemContent
+                m.currentView.itemContent = content
+            else
+                m.currentView.itemContent = itemContent
+            end if
         end if
 
         m.currentView.setFocus(true) 'Set Focus in the View
+        'stop
     end if
 
 end function
