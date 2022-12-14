@@ -33,13 +33,6 @@ function onKeyEvent(key as String, press as Boolean) as Boolean
   handled = false
   if press then
     if (key = "back") then
-        'm.viewStack.push({view: m.currentView, focusedChild: m.currentView.focusedChild})
-        print""
-        print""
-        print"m.viewStack[0]: "m.viewStack[0]
-        print"m.viewStack[1]: "m.viewStack[1]
-        print""
-        print""
         handled = restorePreviousView()
         
         ' else if (key = "options")
