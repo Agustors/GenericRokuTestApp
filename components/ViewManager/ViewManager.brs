@@ -104,18 +104,22 @@ function restorePreviousView()
             m.previousStoredView = m.viewStack.Pop() 'Get previous view form the array and remove it from the stack
             m.currentView = m.previousStoredView.view
             m.top.appendChild(m.currentView)
-            if m.previousStoredView.focusedChild.getchildren(-1,0)[1] <> invalid then 'm.previousStoredView.focusedChild.getchildren(-1,0)[1].focusedChild
-            'm.previousStoredView.focusedChild.focusable = true 'Recover focus in the correct child in the view
-            'm.previousStoredView.focusedChild.setFocus(true) 'Recover focus in the correct child in the view
+            previousViewFocusedItem = m.previousStoredView.focusedChild.getchildren(-1,0)[1]
+            if previousViewFocusedItem <> invalid then 'm.previousStoredView.focusedChild.getchildren(-1,0)[1].focusedChild
+                'm.previousStoredView.focusedChild.focusable = true 'Recover focus in the correct child in the view
+                'm.previousStoredView.focusedChild.setFocus(true) 'Recover focus in the correct child in the view
+                
+                previousViewFocusedItem.focusable = true 'works
+                previousViewFocusedItem.setFocus(true) 'works
 
-            m.previousStoredView.focusedChild.getchildren(-1,0)[1].focusable = true
-            m.previousStoredView.focusedChild.getchildren(-1,0)[1].setFocus(true)
+                ' m.currentView.focusedChild.focusable = true
+                ' m.currentView.focusedChild.setFocus(true)
+
                 print""
                 print""
                 print"m.previousStoredView.focusedChild: "m.previousStoredView.focusedChild
                 print""
                 print""
-                
             else
                 m.previousStoredView.focusedChild.focusable = true 'Recover focus in the correct child in the view
                 m.previousStoredView.focusedChild.setFocus(true) 'Recover focus in the correct child in the view
