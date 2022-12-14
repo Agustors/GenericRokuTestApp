@@ -15,9 +15,9 @@ sub init()
 end sub
 
 sub onSelectedContentNodeChanged(ev)
-    'stop
+    
     if ev.getData().character <> invalid and ev.getData().person <> invalid 
-        'stop
+        
         showView("FullScreenView",ev.getData()) 'display the fullscreen view
     else     
         showView("DetailView",ev.getData())
@@ -33,10 +33,18 @@ function onKeyEvent(key as String, press as Boolean) as Boolean
   handled = false
   if press then
     if (key = "back") then
-      handled = restorePreviousView()
-    ' else if (key = "options")
-    '   showView("SearchView")
-    '   handled = true
+        'm.viewStack.push({view: m.currentView, focusedChild: m.currentView.focusedChild})
+        print""
+        print""
+        print"m.viewStack[0]: "m.viewStack[0]
+        print"m.viewStack[1]: "m.viewStack[1]
+        print""
+        print""
+        handled = restorePreviousView()
+        
+        ' else if (key = "options")
+        '   showView("SearchView")
+        '   handled = true
     end if
   end if
   return handled
@@ -48,7 +56,7 @@ function showView(viewName, itemContent = invalid)
         storePreviousView()
         
         m.currentView = m.top.CreateChild(viewName) 'Add each child view as needed, PopularMoviesView as first view
-        'stop
+        
         'Control the created views that must only be open one instance per moment
         if m.viewControl.doesExist(m.currentView.subType()) then
             m.viewControl[m.currentView.subType()] = true
@@ -65,7 +73,7 @@ function showView(viewName, itemContent = invalid)
         end if
 
         m.currentView.setFocus(true) 'Set Focus in the View
-        'stop
+        
     end if
 
 end function
@@ -92,15 +100,26 @@ function restorePreviousView()
                 m.viewControl[m.currentView.subType()] = false
                 'print"m.currentView.subType(): "m.currentView.subType()
             end if
-
+            
             m.previousStoredView = m.viewStack.Pop() 'Get previous view form the array and remove it from the stack
             m.currentView = m.previousStoredView.view
             m.top.appendChild(m.currentView)
-            if m.previousStoredView.focusedChild <> invalid then
+            if m.previousStoredView.focusedChild.getchildren(-1,0)[1] <> invalid then 'm.previousStoredView.focusedChild.getchildren(-1,0)[1].focusedChild
+            'm.previousStoredView.focusedChild.focusable = true 'Recover focus in the correct child in the view
+            'm.previousStoredView.focusedChild.setFocus(true) 'Recover focus in the correct child in the view
+
+            m.previousStoredView.focusedChild.getchildren(-1,0)[1].focusable = true
+            m.previousStoredView.focusedChild.getchildren(-1,0)[1].setFocus(true)
+                print""
+                print""
+                print"m.previousStoredView.focusedChild: "m.previousStoredView.focusedChild
+                print""
+                print""
+                
+            else
                 m.previousStoredView.focusedChild.focusable = true 'Recover focus in the correct child in the view
                 m.previousStoredView.focusedChild.setFocus(true) 'Recover focus in the correct child in the view
-            else
-                m.currentView.setFocus(true) 'Set focus in the recovered previous view
+                'm.currentView.setFocus(true) 'Set focus in the recovered previous view
             end if
             return true
       end if
