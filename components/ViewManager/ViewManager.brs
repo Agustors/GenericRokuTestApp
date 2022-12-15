@@ -10,7 +10,6 @@ sub init()
     m.viewStack = [] 'Field to store the previous screen in the app
     showView("PopularMoviesView") 'Show/Create the first view of the app
     m.top.observeField("selectedContentNode","onSelectedContentNodeChanged")
-    'print "m.top.observeField(playContent,onPlayContentChanged): "m.top.observeField("playContent","onPlayContentChanged")
     m.top.observeField("playContent","onPlayContentChanged")
 end sub
 
@@ -25,7 +24,6 @@ sub onSelectedContentNodeChanged(ev)
 end sub
 
 sub onPlayContentChanged(ev)
-    'print"onPlayContentChanged(ev): "ev
     showView("VideoView", ev.getData())
 end sub
 
@@ -34,10 +32,6 @@ function onKeyEvent(key as String, press as Boolean) as Boolean
   if press then
     if (key = "back") then
         handled = restorePreviousView()
-        
-        ' else if (key = "options")
-        '   showView("SearchView")
-        '   handled = true
     end if
   end if
   return handled
@@ -91,7 +85,6 @@ function restorePreviousView()
             'Here we put the creation status false to allow create the view again if necessary
             if m.viewControl.doesExist(m.currentView.subType()) then
                 m.viewControl[m.currentView.subType()] = false
-                'print"m.currentView.subType(): "m.currentView.subType()
             end if
             
             m.previousStoredView = m.viewStack.Pop() 'Get previous view form the array and remove it from the stack
@@ -99,24 +92,11 @@ function restorePreviousView()
             m.top.appendChild(m.currentView)
             previousViewFocusedItem = m.previousStoredView.focusedChild.getchildren(-1,0)[1]
             if previousViewFocusedItem <> invalid then 'm.previousStoredView.focusedChild.getchildren(-1,0)[1].focusedChild
-                'm.previousStoredView.focusedChild.focusable = true 'Recover focus in the correct child in the view
-                'm.previousStoredView.focusedChild.setFocus(true) 'Recover focus in the correct child in the view
-                
                 previousViewFocusedItem.focusable = true 'works
                 previousViewFocusedItem.setFocus(true) 'works
-
-                ' m.currentView.focusedChild.focusable = true
-                ' m.currentView.focusedChild.setFocus(true)
-
-                print""
-                print""
-                print"m.previousStoredView.focusedChild: "m.previousStoredView.focusedChild
-                print""
-                print""
             else
                 m.previousStoredView.focusedChild.focusable = true 'Recover focus in the correct child in the view
                 m.previousStoredView.focusedChild.setFocus(true) 'Recover focus in the correct child in the view
-                'm.currentView.setFocus(true) 'Set focus in the recovered previous view
             end if
             return true
       end if

@@ -44,11 +44,7 @@ sub onActorsRowListItemSelectedChanged(ev)
     row = ev.getData()[0]
     item = ev.getData()[1]
     selectedItemContent = content.getChild(row).getChild(item)
-    'fullScreenView = CreateObject("roSGNode","FullScreenView")
-    'fullScreenView.itemContent = selectedItemContent
     if content <> invalid and selectedItemContent <> invalid and m.top.getParent() <> invalid then
-        'm.top.getParent() is the ViewManager component
-        'm.top.getParent().selectedContentNode = fullScreenView
         m.top.getParent().selectedContentNode = selectedItemContent
     end if
 end sub
@@ -74,7 +70,6 @@ end sub
 sub setContent(ev)
     data = ev.getData()
     m.top.itemContent = data
-    'print"assetDetailView showContent: "m.top.itemContent
     
     if data.content <> invalid and data.content.person <> invalid and data.content.character <> invalid and type(data.content.person) = "roAssociativeArray" and type(data.content.character) = "roAssociativeArray"
         itemContentArray = {}
@@ -111,7 +106,3 @@ sub setContent(ev)
     end if
     
 end sub
-
-' sub onShowVodButtonSelected() 
-'     m.top.getParent().playContent = true
-' end sub

@@ -28,8 +28,6 @@ sub init()
     end if
 
     m.itemLabel.text = itemContentArray.data.title
-    'print"m.itemLabel.text: "m.itemLabel.text
     
     m.itemPoster.uri = itemContentArray.data.poster
-    'print"m.itemPoster.uri: "m.itemPoster.uri
   end sub
