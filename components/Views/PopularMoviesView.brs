@@ -51,7 +51,7 @@ sub onItemSelectedChanged(ev)
     row = ev.getData()[0]
     item = ev.getData()[1]
     m.global.addfields({movieIndex: ""}) 'reference for each movie cast api call
-    m.top.movieIndex = (item + 1).toStr()
+    m.top.movieIndex = (item + 1).toStr() 'item + 1 CAST call endpoint starts at "1", rowList first item starts with "0"
     selectedItemContent = content.getChild(row).getChild(item)
     if content <> invalid and selectedItemContent <> invalid and m.top.getParent() <> invalid then
         'm.top.getParent() is the ViewManager component
