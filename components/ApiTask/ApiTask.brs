@@ -13,6 +13,11 @@ sub init()
     m.top.functionName = "getcontent"
 end sub
 
+' *************************************************
+' Sub to fetch content 
+' @param no params
+' @return no return
+' *************************************************
 sub getcontent()
     print"m.top.callParams.movieIndex: "m.top.callParams.movieIndex
     
@@ -84,6 +89,12 @@ sub getcontent()
         m.top.content = PopularMoviesRow
 end sub
 
+' *************************************************
+' Function which provides config for api calls
+' @param - callId
+' @param - movieIndex
+' @return - apiCallsList[callId]
+' *************************************************
 function getAPICallConfig(callId, movieIndex=invalid)
     if movieIndex = invalid then movieIndex = "1"
     

@@ -32,14 +32,29 @@ sub init()
 
 end sub
 
+' *************************************************
+' Function that returns movieIndex
+' @param no params
+' @return - movieIndex
+' *************************************************
 function onCallParamsMovieIndexChanged() 
     return m.global.movieIndex
 end function
 
+' *************************************************
+' Function that sets focus
+' @param no params
+' @return no params
+' *************************************************
 sub onFocusedChildChanged() 
     m.top.setfocus(true)
 end sub
 
+' *************************************************
+' Function that executes Cast api call with movieIndex param
+' @param - movieIndex
+' @return no params
+' *************************************************
 sub executeCastAPICall(movieIndex)
     callParams = {movieIndex: movieIndex}
     m.apiTask.callID = "Cast"
@@ -47,6 +62,11 @@ sub executeCastAPICall(movieIndex)
     m.apiTask.control = "RUN"
 end sub
 
+' *************************************************
+' Sub that sets full Screen content according to Actor's RowList ItemSelected
+' @param - event
+' @return no params
+' *************************************************
 sub onActorsRowListItemSelectedChanged(ev)
     content = ev.getRoSGNode().content
     row = ev.getData()[0]
@@ -57,6 +77,11 @@ sub onActorsRowListItemSelectedChanged(ev)
     end if
 end sub
 
+' *************************************************
+' Sub that sets ActorsRowList content
+' @param - event
+' @return no params
+' *************************************************
 sub setActorsRowListContent(ev)
     data = ev.getData()
     actorsRowListContent = CreateObject("roSGNode","ContentNode")
@@ -68,13 +93,22 @@ sub setActorsRowListContent(ev)
     m.actorsRowList.setFocus(true)
 end sub
 
+' *************************************************
+' Sub to play VOD content (work in progress)
+' @param - event
+' @return no params
+' *************************************************
 sub onButtonSelectedChanged(ev)
     if m.top.getParent() <> invalid then
         m.top.getParent().playContent = true
     end if
 end sub
 
-
+' *************************************************
+' Sub that sets content of DetailView
+' @param - event
+' @return no params
+' *************************************************
 sub setContent(ev)
     data = ev.getData()
     m.top.itemContent = data
