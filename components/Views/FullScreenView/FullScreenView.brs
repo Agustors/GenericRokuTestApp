@@ -37,15 +37,21 @@ sub setContent(ev)
             characterPoster: data.itemContent.character.image.original
         }
     else 
-        if data.character.image = invalid
+        if data.character.image = invalid or data.person.image = invalid
+            if data.person.image <> invalid
+                actorImage = data.person.image.original
+            else
+                actorImage = "pkg:/images/placeholders/placeholder_square.png"
+            end if
             characterImage = "pkg:/images/placeholders/placeholder_square.png"
         else 
+            actorImage = data.person.image.original
             characterImage = data.character.image.original
         end if
         itemContentArray = {}
         itemContentArray.data = {
             actorName: data.person.name,
-            actorPoster: data.person.image.original
+            actorPoster: actorImage
             characterName: data.character.name
             characterPoster: characterImage
         } 
