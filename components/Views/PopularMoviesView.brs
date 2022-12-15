@@ -50,11 +50,18 @@ sub onItemSelectedChanged(ev)
     content = ev.getRoSGNode().content
     row = ev.getData()[0]
     item = ev.getData()[1]
+    m.global.addfields({movieIndex: ""}) 'reference for each movie cast api call
+    m.top.movieIndex = (item + 1).toStr()
     selectedItemContent = content.getChild(row).getChild(item)
     if content <> invalid and selectedItemContent <> invalid and m.top.getParent() <> invalid then
         'm.top.getParent() is the ViewManager component
         m.top.getParent().selectedContentNode = selectedItemContent
     end if
+end sub
+
+sub onMovieIndexChanged()
+    m.global.setFields({movieIndex: m.top.movieIndex}) 'reference for each movie cast api call
+    print"m.top.movieIndex: "m.top.movieIndex
 end sub
 
 sub onItemFocusedChanged(ev) 

@@ -19,7 +19,15 @@ sub init()
 end sub
 
 sub getcontent()
-    apiCallConfig = getAPICallConfig(m.top.callId)
+    print"m.top.callParams.movieIndex: "m.top.callParams.movieIndex
+    'stop
+    if m.top.callParams.DoesExist("movieIndex")
+        apiCallConfig = getAPICallConfig(m.top.callId, m.top.callParams.movieIndex)
+    else 
+        apiCallConfig = getAPICallConfig(m.top.callId)
+    end if
+    'stop
+    'apiCallConfig = getAPICallConfig(m.top.callId, m.top.callParams.movieIndex)
     if apiCallConfig = invalid then return 'Avoid crash the app if callId is not set properly
 
     'ContentType indicates if we will have a list of items of apiCallConfig.ContentNodeType or just an item of apiCallConfig.ContentNodeType 
@@ -63,7 +71,7 @@ sub getcontent()
     urlTransferObj.setUrl(m.baseUrl+apiCallConfig.endpoint+parameters)
     
     response = urlTransferObj.getToString()
-    ''print"response: " response
+    'print"response: " response
     
     if response <> invalid then 
         
@@ -81,8 +89,9 @@ sub getcontent()
         m.top.content = PopularMoviesRow
 end sub
 
-function getAPICallConfig(callId)
-
+function getAPICallConfig(callId, movieIndex=invalid)
+    if movieIndex = invalid then movieIndex = "1"
+    'stop
     apiCallsList = {
         
         "shows": {
@@ -101,7 +110,7 @@ function getAPICallConfig(callId)
             "contentType":"ContentNodeList",
         },
         "cast": {
-            "endpoint" : "/shows/1/cast",
+            "endpoint" : "/shows/"+movieIndex+"/cast",
             "contentNodeType":"ShowsContentNode",
             "contentType":"ContentNodeList",
         }

@@ -37,6 +37,8 @@ sub setContent(ev)
             characterPoster: data.itemContent.character.image.original
         }
     else 
+        'quick fix due to invalid character image
+        'near future task: a better data validation is to be obtained regarding all data
         if data.character.image = invalid or data.person.image = invalid
             if data.person.image <> invalid
                 actorImage = data.person.image.original
