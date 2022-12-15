@@ -20,11 +20,7 @@ sub init()
     m.apiTask = CreateObject("roSGNode","ApiTask")
     m.apiTask.observeField("content","setActorsRowListContent")
     
-    'movieIndex = m.global.observeField("movieIndex","onCallParamsMovieIndexChanged")
     movieIndex = onCallParamsMovieIndexChanged()
-    
-    'movieIndex = m.global.movieIndex
-    'stop
     executeCastAPICall(movieIndex)
 
     'RowList
@@ -37,7 +33,6 @@ sub init()
 end sub
 
 function onCallParamsMovieIndexChanged() 
-    'stop
     return m.global.movieIndex
 end function
 
@@ -49,7 +44,6 @@ sub executeCastAPICall(movieIndex)
     callParams = {movieIndex: movieIndex}
     m.apiTask.callID = "Cast"
     m.apiTask.callParams = callParams
-    'stop
     m.apiTask.control = "RUN"
 end sub
 

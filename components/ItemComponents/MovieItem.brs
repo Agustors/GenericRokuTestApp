@@ -7,8 +7,6 @@ sub init()
   end sub
 
   sub showcontent()
-    'print"m.top.itemContent: "m.top.itemContent
-    
     itemContentArray = {}
     if m.top.itemContent.image <> invalid and m.top.itemContent.name <> invalid 'm.top.itemContent.contentType <> invalid and m.top.itemContent.contentType = "popularMoviesRowListContent"
         itemContentArray.data = {

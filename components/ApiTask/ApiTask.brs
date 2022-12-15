@@ -6,28 +6,23 @@ sub init()
         fileInStr = ReadAsciiFile("pkg:/configs/config.json") 'File in String
         fileInJson = ParseJSON(fileInStr)
         m.baseUrl = fileInJson.API_BASE_URL
-        m.posterPathBaseUrl = fileInJson.POSTER_PATH_BASE_URL
-        'm.posterPathBaseUrl = fileInJson.AMAZON_AWS 'Wunderman Thompson
-        'print " " 
-        'print "m.baseURL: " m.baseUrl
-        'print " " 
+        m.posterPathBaseUrl = fileInJson.POSTER_PATH_BASE_URL 
     else
         m.baseUrl = ""
     end if
-    'print "API Base Url is: " m.baseUrl
     m.top.functionName = "getcontent"
 end sub
 
 sub getcontent()
     print"m.top.callParams.movieIndex: "m.top.callParams.movieIndex
-    'stop
+    
     if m.top.callParams.DoesExist("movieIndex")
         apiCallConfig = getAPICallConfig(m.top.callId, m.top.callParams.movieIndex)
     else 
         apiCallConfig = getAPICallConfig(m.top.callId)
     end if
-    'stop
-    'apiCallConfig = getAPICallConfig(m.top.callId, m.top.callParams.movieIndex)
+    
+    
     if apiCallConfig = invalid then return 'Avoid crash the app if callId is not set properly
 
     'ContentType indicates if we will have a list of items of apiCallConfig.ContentNodeType or just an item of apiCallConfig.ContentNodeType 
@@ -91,7 +86,7 @@ end sub
 
 function getAPICallConfig(callId, movieIndex=invalid)
     if movieIndex = invalid then movieIndex = "1"
-    'stop
+    
     apiCallsList = {
         
         "shows": {
