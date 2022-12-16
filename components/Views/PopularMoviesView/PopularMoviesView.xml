@@ -6,7 +6,7 @@
 	<field id = "movieIndex" type = "string" alwaysnotify="true" onChange = "onMovieIndexChanged"/>
 </interface>
 
-<script type = "text/brightscript" uri="pkg:/components/Views/PopularMoviesView.brs"/>
+<script type = "text/brightscript" uri="pkg:/components/Views/PopularMoviesView/PopularMoviesView.brs"/>
 
 	<children>
       <Label 

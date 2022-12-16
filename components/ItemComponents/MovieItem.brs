@@ -13,7 +13,7 @@ sub init()
             poster: m.top.itemContent.image.medium,
             title: m.top.itemContent.name,
         }
-        'TODO: the following m.top.itemContent.person.image may be invalid in some cases, better validation is required
+        'ToDo: the following m.top.itemContent.person.image may be invalid in some cases, better validation is required
     else if m.top.itemContent.person.image.medium <> invalid and m.top.itemContent.person.name <> invalid 'm.top.itemContent.contentType <> invalid and m.top.itemContent.contentType = "actorsRowListContent"
         itemContentArray.data = {
             poster: m.top.itemContent.person.image.medium, 'm.top.itemContent.getchild(0).getchildren(-1,0)[0].person.image.medium

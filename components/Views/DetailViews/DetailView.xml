@@ -6,7 +6,7 @@
         <field id = "itemContent" type = "node" alwaysnotify="true" onChange = "setContent"/>
     </interface>
 
-    <script type="text/brightscript" uri="./DetailView.brs"/>
+    <script type="text/brightscript" uri="pkg:/components/Views/DetailViews/DetailView.brs" />
 
     <children>
 
