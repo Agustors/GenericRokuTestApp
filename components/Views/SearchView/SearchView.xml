@@ -1,6 +1,6 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 
-<component name = "SearchView" extends = "BaseView" initialFocus="playButton">
+<component name = "SearchView" extends = "BaseView" initialFocus="keyboard">
 
     <interface> 
         <field id = "itemContent" type = "node" alwaysnotify="true" onChange = "setContent"/>
@@ -10,62 +10,36 @@
 
     <children>
 
+    <Group id="serachOptionsGroup" translation = "[30,75]">
+        <Button 
+            id = "searchMoviesButton"
+            showFocusFootprint = "true"
+            text = "search Series"
+            focusedTextColor = "0x262626ff"
+            height = "70"
+            minwidth = "265"
+            maxwidth = "265"
+            iconUri = "pkg:/images/stars/star4.png" 
+            translation = "[0,80]"/>
+
+        <Button 
+            id = "searchSeriesButton"
+            showFocusFootprint = "true"
+            text = "search Movies"
+            focusedTextColor = "0x262626ff"
+            height = "70"
+            minwidth = "265"
+            maxwidth = "265"
+            iconUri = "pkg:/images/stars/star4.png" 
+            translation = "[0,170]"/>
+    </Group>
             
-    <Group id="detailsGroup" translation = "[0,0]">
-        
-        <Poster 
-            id = "assetImage" 
-            width = "235" 
-            height = "300" 
-            translation = "[75,75]" 
-            uri = "m.top.itemContent.poster_path"/>
-        
-        <Label 
-            id = "assetTitle" 
-            translation = "[365,74]"
-            font="font:MediumBoldSystemFont"
-            text = "Title:"
-            color = "0x72D7EEFF"/>
-        
-        <Label 
-            id = "assetTitleText" 
-            translation = "[430,74]"
-            font="font:MediumBoldSystemFont"
-            text = ""
-            color = "0xFFFFFFFF"/>
-
-        <Label 
-            id = "assetDescription" 
-            translation = "[365,120]"
-            font="font:MediumBoldSystemFont"
-            text = "Description:"
-            color = "0x72D7EEFF"/>
-
-        <Label 
-            id = "assetDescriptionText" 
-            width = "800"
-            height = "300" 
-            translation = "[365,170]"
-            font="font:SmallestSystemFont"
-            horizAlign = "left"
-            vertAlign = "top"
-            wrap = "true"/>
-        
-        <!-- <PlayButton 
-                id = "playButton"
-                text = ""
-                focusedTextColor = "0x262626ff"
-                height = "70"
-                minwidth = "50"
-                maxwidth = "100"
-                focusedIconUri = "pkg:/images/playback_buttons/btt_play_white.png"
-                iconUri = "pkg:/images/playback_buttons/btt_play_white.png"
-                translation = "[135,200]" /> -->
-
+    <Group id="keyboardGroup" translation = "[300,75]">
+        <Keyboard id = "Keyboard" />
     </Group>
 
 
-    <Group id="actorsGroup" translation = "[75,360]">
+    <Group id="SearchResultsGroup" translation = "[75,360]">
         <Label 
             id="actorsLabel" 
             text = "Actors"

@@ -6,6 +6,7 @@ sub init()
         DetailView: false
         VideoView: false
         FullScreenView: false
+        SearchView: false
     }
     m.viewStack = [] 'Field to store the previous screen in the app
     showView("PopularMoviesView") 'Show/Create the first view of the app
@@ -32,9 +33,11 @@ function onKeyEvent(key as String, press as Boolean) as Boolean
   if press then
     if (key = "back") then
         handled = restorePreviousView()
+    else if (key = "options") then
+        handled = showView("SearchView")
     end if
   end if
-  return handled
+  return true
 end function
 
 function showView(viewName, itemContent = invalid)

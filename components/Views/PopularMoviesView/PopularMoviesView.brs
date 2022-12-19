@@ -29,7 +29,7 @@ function init()
     ' m.top.setFocus(true)
 
     'scrolling label
-    m.top.backgroundURI = "pkg:/images/rsgde_bg_hd.jpg"
+    'm.top.backgroundURI = "pkg:/images/btt_back.png"
     example = m.top.findNode("exampleScrollingLabel")
     examplerect = example.boundingRect()
     centerx = (1280 - examplerect.width) / 2

@@ -28,7 +28,7 @@ sub init()
     m.actorsRowList.observeField("rowItemSelected","onActorsRowListItemSelectedChanged")
 
     'FocusedChild
-    'm.top.observeField("FocusedChild","onFocusedChildChanged")
+    m.top.observeField("FocusedChild","onFocusedChildChanged")
 
 end sub
 
