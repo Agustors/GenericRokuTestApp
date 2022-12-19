@@ -20,6 +20,24 @@ function init()
     m.global.addfields({page: "1"})
     executeShowsAPICall(initialCallparams)
 
+    ' 'Search button
+    ' example = m.top.findNode("searchButton")
+    ' examplerect = example.boundingRect()
+    ' centerx = (1280 - examplerect.width) / 2
+    ' centery = (720 - examplerect.height) / 2 + 100
+    ' example.translation = [ centerx, centery ]
+    ' m.top.setFocus(true)
+
+    'scrolling label
+    m.top.backgroundURI = "pkg:/images/rsgde_bg_hd.jpg"
+    example = m.top.findNode("exampleScrollingLabel")
+    examplerect = example.boundingRect()
+    centerx = (1280 - examplerect.width) / 2
+    centery = (720 - examplerect.height) / 2 + 100
+    example.translation = [ centerx, centery ]
+    m.top.setFocus(true)
+
+
 end function
 
 sub executeShowsAPICall(callParams)

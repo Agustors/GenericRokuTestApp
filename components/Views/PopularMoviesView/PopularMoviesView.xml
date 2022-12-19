@@ -34,6 +34,41 @@
 		rowFocusAnimationStyle = "floatingfocus"   
 		translation = "[50,100]"
 	/>
+	
+	<Poster
+		id="Star"
+		uri="pkg:/images/stars/star4.png"
+		width="0.0"
+		height="0.0"
+		translation="[445,433]" />
+
+	<ScrollingLabel 
+		id = "exampleScrollingLabel" 
+		maxWidth = "300" 
+		height = "0" 
+		font = "font:LargeBoldSystemFont" 
+		text = "Press * on remote to search videos.                Press * on remote to search videos.                Press * on remote to search videos."
+		horizAlign = "left" 
+		vertAlign = "top" />
+	
+	<!-- <SimpleLabel
+		id="testLabel"
+		font="fontUri:MediumBoldSystemFont"
+		text = "Press * to search videos!"
+		horizOrigin = "left"
+		vertOrigin = "baseline"
+		translation="[500,560]" /> -->
+
+	<!-- <Button 
+		id = "searchButton"
+		showFocusFootprint = "true"
+		text = "Press * for Search"
+		focusedTextColor = "0x262626ff"
+		height = "70"
+		minwidth = "460"
+		maxwidth = "100"
+		focusedIconUri = "pkg:/images/backgrounds/btt_back.png"
+		iconUri = "pkg:/images/stars/star4.png" /> -->
 
 	</children>
 

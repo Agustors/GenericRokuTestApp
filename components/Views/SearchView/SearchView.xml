@@ -1,0 +1,98 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<component name = "SearchView" extends = "BaseView" initialFocus="playButton">
+
+    <interface> 
+        <field id = "itemContent" type = "node" alwaysnotify="true" onChange = "setContent"/>
+    </interface>
+
+    <script type="text/brightscript" uri="pkg:/components/Views/SearchView/SearchView.brs" />
+
+    <children>
+
+            
+    <Group id="detailsGroup" translation = "[0,0]">
+        
+        <Poster 
+            id = "assetImage" 
+            width = "235" 
+            height = "300" 
+            translation = "[75,75]" 
+            uri = "m.top.itemContent.poster_path"/>
+        
+        <Label 
+            id = "assetTitle" 
+            translation = "[365,74]"
+            font="font:MediumBoldSystemFont"
+            text = "Title:"
+            color = "0x72D7EEFF"/>
+        
+        <Label 
+            id = "assetTitleText" 
+            translation = "[430,74]"
+            font="font:MediumBoldSystemFont"
+            text = ""
+            color = "0xFFFFFFFF"/>
+
+        <Label 
+            id = "assetDescription" 
+            translation = "[365,120]"
+            font="font:MediumBoldSystemFont"
+            text = "Description:"
+            color = "0x72D7EEFF"/>
+
+        <Label 
+            id = "assetDescriptionText" 
+            width = "800"
+            height = "300" 
+            translation = "[365,170]"
+            font="font:SmallestSystemFont"
+            horizAlign = "left"
+            vertAlign = "top"
+            wrap = "true"/>
+        
+        <!-- <PlayButton 
+                id = "playButton"
+                text = ""
+                focusedTextColor = "0x262626ff"
+                height = "70"
+                minwidth = "50"
+                maxwidth = "100"
+                focusedIconUri = "pkg:/images/playback_buttons/btt_play_white.png"
+                iconUri = "pkg:/images/playback_buttons/btt_play_white.png"
+                translation = "[135,200]" /> -->
+
+    </Group>
+
+
+    <Group id="actorsGroup" translation = "[75,360]">
+        <Label 
+            id="actorsLabel" 
+            text = "Actors"
+            width = "0" 
+            height = "80" 
+            horizAlign = "left"
+            vertAlign ="center"
+            font="font:MediumBoldSystemFont"
+            translation = "[5,20]"
+            />
+
+        <Rowlist 
+            id="actorsRowList"
+            itemComponentName = "RowListItem" 
+            itemSize = "[1190,240]" 
+            rowItemSize = "[[200, 200]]"
+            rowItemSpacing = "[[20, 0]]"
+            showRowCounter = "true"
+            rowCounterRightOffset = "2.0"
+            drawFocusFeedback = "true"
+            drawFocusFeedbackOnTop = "true"
+            vertFocusAnimationStyle = "fixedFocusWrap" 
+            rowFocusAnimationStyle = "floatingfocus"   
+            translation = "[0,70]"
+        />
+    </Group>
+
+    </children>
+
+</component>
