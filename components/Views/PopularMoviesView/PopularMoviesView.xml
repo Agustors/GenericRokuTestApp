@@ -36,11 +36,11 @@
 	/>
 	
 	<Poster
-		id="Star"
-		uri="pkg:/images/stars/star4.png"
-		width="0.0"
-		height="0.0"
-		translation="[445,433]" />
+		id="search"
+		uri="pkg:/images/stars/search.png"
+		width="75.0"
+		height="75.0"
+		translation="[440,425]" />
 
 	<ScrollingLabel 
 		id = "exampleScrollingLabel" 

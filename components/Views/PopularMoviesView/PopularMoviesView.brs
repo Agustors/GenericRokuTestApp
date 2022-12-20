@@ -32,7 +32,7 @@ function init()
     'm.top.backgroundURI = "pkg:/images/btt_back.png"
     example = m.top.findNode("exampleScrollingLabel")
     examplerect = example.boundingRect()
-    centerx = (1280 - examplerect.width) / 2
+    centerx = (1280 - examplerect.width) / 2 + 10
     centery = (720 - examplerect.height) / 2 + 100
     example.translation = [ centerx, centery ]
     m.top.setFocus(true)

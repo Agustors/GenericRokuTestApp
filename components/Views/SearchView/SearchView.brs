@@ -1,9 +1,23 @@
 sub init()
     'print "Init SearchView"
+
+    'searchOptionsGroup 'test
+    m.searchOptionsGroup = m.top.findNode("searchOptionsGroup")
+    m.searchOptionsGroup.buttons = [ "Search Movies", "Search Series" ] 
+    m.searchOptionsGroup.focusedTextColor = "0x72D7EEFF" 
+    m.searchOptionsGroup.iconUri = "pkg:/images/stars/x_square_icon.png" 
+    m.searchOptionsGroup.focusedIconUri = "pkg:/images/stars/x_square_icon.png" 
+    m.searchOptionsGroup.itemSpacings = 15 
+    m.searchOptionsGroup.focusButton = 0 
+    m.searchOptionsGroup.focusFootprintBitmapUri = "pkg:/images/stars/focusFootprint.png"
+    m.searchOptionsGroup.focusBitmapUri = "pkg:/images/stars/focus.png"
+    
+    m.searchOptionsGroup.observeField("buttonSelected", "onSearchOptionsGroupButtonSelected")
+
     'Actors Label
-    m.actorsLabel = m.top.findNode("actorsLabel")
-    m.actorsLabel.font.size=30
-    m.actorsLabel.color="0x72D7EEFF"
+    m.searchResultLabel = m.top.findNode("searchResultLabel")
+    m.searchResultLabel.font.size=30
+    m.searchResultLabel.color="0x72D7EEFF"
 
     m.assetTitleText = m.top.findNode("assetTitleText")
     m.assetImage = m.top.findNode("assetImage")
@@ -30,6 +44,11 @@ sub init()
     'FocusedChild
     m.top.observeField("FocusedChild","onFocusedChildChanged")
 
+end sub
+
+sub onSearchOptionsGroupButtonSelected()
+    stop
+    m.searchOptionsGroup.iconUri = "pkg:/images/stars/confirm-large-light.png"
 end sub
 
 ' *************************************************

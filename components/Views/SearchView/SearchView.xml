@@ -1,48 +1,47 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 
-<component name = "SearchView" extends = "BaseView" initialFocus="keyboard">
+<component name = "SearchView" extends = "BaseView" initialFocus="searchMoviesButton">
 
     <interface> 
         <field id = "itemContent" type = "node" alwaysnotify="true" onChange = "setContent"/>
     </interface>
 
-    <script type="text/brightscript" uri="pkg:/components/Views/SearchView/SearchView.brs" />
+    <script type="text/brightscript" uri="pkg:/components/Views/SearchView/SearchView.brs"/>
 
     <children>
 
-    <Group id="serachOptionsGroup" translation = "[30,75]">
-        <Button 
+    <ButtonGroup id="searchOptionsGroup" translation = "[30,140]" >
+        <!-- <Button 
             id = "searchMoviesButton"
-            showFocusFootprint = "true"
             text = "search Series"
-            focusedTextColor = "0x262626ff"
+            textColor="0xffffff"
+            focusedTextColor = "0x72D7EEFF"
             height = "70"
             minwidth = "265"
             maxwidth = "265"
-            iconUri = "pkg:/images/stars/star4.png" 
-            translation = "[0,80]"/>
+            focusedIconUri = "pkg:/images/stars/star4.png" />
 
         <Button 
             id = "searchSeriesButton"
-            showFocusFootprint = "true"
             text = "search Movies"
-            focusedTextColor = "0x262626ff"
+            textColor="0xffffff"
+            focusedTextColor = "0x72D7EEFF"
             height = "70"
             minwidth = "265"
             maxwidth = "265"
-            iconUri = "pkg:/images/stars/star4.png" 
-            translation = "[0,170]"/>
-    </Group>
+            focusedIconUri = "pkg:/images/stars/star4.png" /> -->
             
-    <Group id="keyboardGroup" translation = "[300,75]">
+    </ButtonGroup>
+            
+    <Group id="keyboardGroup" translation = "[312,75]">
         <Keyboard id = "Keyboard" />
     </Group>
 
 
     <Group id="SearchResultsGroup" translation = "[75,360]">
         <Label 
-            id="actorsLabel" 
-            text = "Actors"
+            id="searchResultLabel" 
+            text = "Search Results"
             width = "0" 
             height = "80" 
             horizAlign = "left"
