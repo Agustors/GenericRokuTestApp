@@ -181,21 +181,27 @@ function onKeyEvent(key as String, press as Boolean) as Boolean
     handled = false
     if press then
         if (m.keyboard.hasFocus()) and (key = "down")
-            m.actorsRowList.setFocus(true)
+            m.keyboard.setFocus(false)
+            handled = m.actorsRowList.setFocus(true)
             
         else if (m.keyboard.hasFocus()) and (key = "left")
-            m.searchOptionsGroup.setFocus(true)
+            m.keyboard.setFocus(false)
+            handled = m.searchOptionsGroup.setFocus(true)
             
         else if (m.searchOptionsGroup.hasFocus()) and (key = "down")
-            m.actorsRowList.setFocus(true)
-
+            m.searchOptionsGroup.setFocus(false)
+            handled = m.actorsRowList.setFocus(true)
+            
         else if (m.searchOptionsGroup.hasFocus()) and (key = "right")
-            m.keyboard.setFocus(true)
+            m.searchOptionsGroup.setFocus(false)
+            handled = m.keyboard.setFocus(true)
             
         else if (m.actorsRowList.hasFocus()) and (key = "up")
-            m.keyboard.setFocus(true)
+            m.actorsRowList.setFocus(false)
+            handled = m.keyboard.setFocus(true)
+            stop
 
         end if
     end if
-    return true
+    return handled
   end function
