@@ -1,6 +1,6 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 
-<component name = "SearchView" extends = "BaseView" initialFocus="searchMoviesButton">
+<component name = "SearchView" extends = "BaseView" initialFocus="Keyboard">
 
     <interface> 
         <field id = "itemContent" type = "node" alwaysnotify="true" onChange = "setContent"/>

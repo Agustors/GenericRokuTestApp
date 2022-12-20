@@ -2,17 +2,7 @@ sub init()
     'print "Init SearchView"
 
     'searchOptionsGroup 'test
-    m.searchOptionsGroup = m.top.findNode("searchOptionsGroup")
-    m.searchOptionsGroup.buttons = [ "Search Movies", "Search Series" ] 
-    m.searchOptionsGroup.focusedTextColor = "0x72D7EEFF" 
-    m.searchOptionsGroup.iconUri = "pkg:/images/stars/x_square_icon.png" 
-    m.searchOptionsGroup.focusedIconUri = "pkg:/images/stars/x_square_icon.png" 
-    m.searchOptionsGroup.itemSpacings = 15 
-    m.searchOptionsGroup.focusButton = 0 
-    m.searchOptionsGroup.focusFootprintBitmapUri = "pkg:/images/stars/focusFootprint.png"
-    m.searchOptionsGroup.focusBitmapUri = "pkg:/images/stars/focus.png"
-    
-    m.searchOptionsGroup.observeField("buttonSelected", "onSearchOptionsGroupButtonSelected")
+    initializeSearchOptionsGroup()
 
     'Actors Label
     m.searchResultLabel = m.top.findNode("searchResultLabel")
@@ -46,8 +36,20 @@ sub init()
 
 end sub
 
+sub initializeSearchOptionsGroup() 
+    m.searchOptionsGroup = m.top.findNode("searchOptionsGroup")
+    m.searchOptionsGroup.buttons = [ "Search Movies", "Search Series" ] 
+    m.searchOptionsGroup.focusedTextColor = "0x72D7EEFF" 
+    m.searchOptionsGroup.iconUri = "pkg:/images/stars/x_square_icon.png" 
+    m.searchOptionsGroup.focusedIconUri = "pkg:/images/stars/x_square_icon.png" 
+    m.searchOptionsGroup.itemSpacings = 15 
+    'm.searchOptionsGroup.focusButton = 0 
+    m.searchOptionsGroup.focusFootprintBitmapUri = "pkg:/images/stars/focusFootprint.png"
+    m.searchOptionsGroup.focusBitmapUri = "pkg:/images/stars/focus.png"
+    m.searchOptionsGroup.observeField("buttonSelected", "onSearchOptionsGroupButtonSelected")
+end sub
+
 sub onSearchOptionsGroupButtonSelected()
-    stop
     m.searchOptionsGroup.iconUri = "pkg:/images/stars/confirm-large-light.png"
 end sub
 
@@ -167,3 +169,22 @@ sub setContent(ev)
     end if
     
 end sub
+
+function onKeyEvent(key as String, press as Boolean) as Boolean
+    handled = false
+    if press then
+      if (m.top.focusedChild = "searchOptionsGroup") and (key = "right") then
+          'handled = restorePreviousView()
+      else if (m.top.focusedChild = "searchOptionsGroup") and (key = "down")
+
+      else if (m.top.focusedChild = "keyboard") and (key = "left")
+      else if (m.top.focusedChild = "keyboard") and (key = "down")
+      
+      else if (m.top.focusedChild = "SearchResultsGroup") and (key = "up")
+
+      'else if (key = "options") then
+          'handled = showView("SearchView")
+      end if
+    end if
+    return true
+  end function
