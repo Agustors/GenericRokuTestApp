@@ -1,6 +1,6 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
 
-<component name = "SearchView" extends = "BaseView" initialFocus="Keyboard">
+<component name = "SearchView" extends = "BaseView" initialFocus="keyboard">
 
     <interface> 
         <field id = "itemContent" type = "node" alwaysnotify="true" onChange = "setContent"/>
@@ -10,7 +10,18 @@
 
     <children>
 
-    <ButtonGroup id="searchOptionsGroup" translation = "[30,140]" >
+    <Label 
+        id="searchByLabel" 
+        text = "Search by:"
+        width = "0" 
+        height = "80" 
+        color = "0x72D7EEFF"
+        horizAlign = "left"
+        vertAlign ="center"
+        font="font:MediumBoldSystemFont"
+        translation = "[55,75]"
+        />
+    <ButtonGroup id="searchOptionsGroup" translation = "[55,150]" >
         <!-- <Button 
             id = "searchMoviesButton"
             text = "search Series"

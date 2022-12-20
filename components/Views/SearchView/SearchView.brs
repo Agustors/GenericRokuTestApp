@@ -4,6 +4,13 @@ sub init()
     'searchOptionsGroup 'test
     initializeSearchOptionsGroup()
 
+    'keyboard
+    m.keyboard = m.top.findNode("keyboard")
+
+    'Search By label
+    m.searchByLabel = m.top.findNode("searchByLabel")
+    m.searchByLabel.font.size = 30
+
     'Actors Label
     m.searchResultLabel = m.top.findNode("searchResultLabel")
     m.searchResultLabel.font.size=30
@@ -38,7 +45,7 @@ end sub
 
 sub initializeSearchOptionsGroup() 
     m.searchOptionsGroup = m.top.findNode("searchOptionsGroup")
-    m.searchOptionsGroup.buttons = [ "Search Movies", "Search Series" ] 
+    m.searchOptionsGroup.buttons = [ "Movies", "Series" ] 
     m.searchOptionsGroup.focusedTextColor = "0x72D7EEFF" 
     m.searchOptionsGroup.iconUri = "pkg:/images/stars/x_square_icon.png" 
     m.searchOptionsGroup.focusedIconUri = "pkg:/images/stars/x_square_icon.png" 
@@ -111,7 +118,7 @@ sub setActorsRowListContent(ev)
     m.actorsRowList.content.addfields({"contentType":"actorsRowListContent"})
     m.actorsRowList.visible = true
     m.actorsRowList.focusable = true
-    m.actorsRowList.setFocus(true)
+    'm.actorsRowList.setFocus(true)
 end sub
 
 ' *************************************************
@@ -173,18 +180,22 @@ end sub
 function onKeyEvent(key as String, press as Boolean) as Boolean
     handled = false
     if press then
-      if (m.top.focusedChild = "searchOptionsGroup") and (key = "right") then
-          'handled = restorePreviousView()
-      else if (m.top.focusedChild = "searchOptionsGroup") and (key = "down")
+        if (m.keyboard.hasFocus()) and (key = "down")
+            m.actorsRowList.setFocus(true)
+            
+        else if (m.keyboard.hasFocus()) and (key = "left")
+            m.searchOptionsGroup.setFocus(true)
+            
+        else if (m.searchOptionsGroup.hasFocus()) and (key = "down")
+            m.actorsRowList.setFocus(true)
 
-      else if (m.top.focusedChild = "keyboard") and (key = "left")
-      else if (m.top.focusedChild = "keyboard") and (key = "down")
-      
-      else if (m.top.focusedChild = "SearchResultsGroup") and (key = "up")
+        else if (m.searchOptionsGroup.hasFocus()) and (key = "right")
+            m.keyboard.setFocus(true)
+            
+        else if (m.actorsRowList.hasFocus()) and (key = "up")
+            m.keyboard.setFocus(true)
 
-      'else if (key = "options") then
-          'handled = showView("SearchView")
-      end if
+        end if
     end if
     return true
   end function
