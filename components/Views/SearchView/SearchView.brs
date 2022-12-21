@@ -1,5 +1,6 @@
 sub init()
     'print "Init SearchView"
+    m.top.id = "SearchView"
 
     'searchOptionsGroup 'test
     initializeSearchOptionsGroup()
@@ -74,9 +75,9 @@ end function
 ' @param no params
 ' @return no params
 ' *************************************************
-sub onFocusedChildChanged() 
-    m.top.setfocus(true)
-end sub
+' sub onFocusedChildChanged()
+'     m.top.setfocus(true)
+' end sub
 
 ' *************************************************
 ' Function that executes Cast api call with movieIndex param
@@ -178,29 +179,46 @@ sub setContent(ev)
 end sub
 
 function onKeyEvent(key as String, press as Boolean) as Boolean
+    'stop
     handled = false
     if press then
-        if (m.keyboard.hasFocus()) and (key = "down")
+        actorsRowList = m.top.findNode("actorsRowList") 
+        'stop
+        if (m.top.focusedchild.id = "keyboardGroup" and key = "down")
+            m.keyboard.focusable = false
             m.keyboard.setFocus(false)
-            handled = m.actorsRowList.setFocus(true)
-            
-        else if (m.keyboard.hasFocus()) and (key = "left")
-            m.keyboard.setFocus(false)
-            handled = m.searchOptionsGroup.setFocus(true)
-            
-        else if (m.searchOptionsGroup.hasFocus()) and (key = "down")
-            m.searchOptionsGroup.setFocus(false)
-            handled = m.actorsRowList.setFocus(true)
-            
-        else if (m.searchOptionsGroup.hasFocus()) and (key = "right")
-            m.searchOptionsGroup.setFocus(false)
-            handled = m.keyboard.setFocus(true)
-            
-        else if (m.actorsRowList.hasFocus()) and (key = "up")
-            m.actorsRowList.setFocus(false)
-            handled = m.keyboard.setFocus(true)
-            stop
+            m.actorsRowList.focusable = true
+            m.actorsRowList.setFocus(true)
+            handled = true
 
+        ' else if (m.keyboard.hasFocus() and key = "left")
+        '     m.keyboard.focusable = false
+        '     m.keyboard.setFocus(false)
+        '     m.searchOptionsGroup.focusable = true
+        '     m.searchOptionsGroup.setFocus(true)
+        '     handled = true
+            
+        ' else if (m.searchOptionsGroup.hasFocus() and key = "down")
+        '     m.searchOptionsGroup.focusable = false
+        '     m.searchOptionsGroup.setFocus(false)
+        '     m.actorsRowList.focusable = true
+        '     m.actorsRowList.setFocus(true)
+        '     handled = true
+            
+        ' else if (m.searchOptionsGroup.hasFocus() and key = "right")
+        '     m.searchOptionsGroup.focusable = false
+        '     m.searchOptionsGroup.setFocus(false)
+        '     m.keyboard.focusable = true
+        '     m.keyboard.setFocus(true)
+        '     handled = true
+            
+        else if (m.top.focusedchild.focusedchild.id = "actorsRowList" and key = "up")
+            m.actorsRowList.focusable = false
+            m.actorsRowList.setFocus(false)
+            m.keyboard.focusable = true
+            m.keyboard.setFocus(true)
+            handled = true
+            'stop
         end if
     end if
     return handled
