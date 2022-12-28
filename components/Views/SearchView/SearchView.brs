@@ -3,14 +3,14 @@ sub init()
     m.top.id = "SearchView"
 
     'searchOptionsGroup 'test
-    initializeSearchOptionsGroup()
+    ' initializeSearchOptionsGroup()
 
     'keyboard
     m.keyboard = m.top.findNode("keyboard")
 
     'Search By label
-    m.searchByLabel = m.top.findNode("searchByLabel")
-    m.searchByLabel.font.size = 30
+    ' m.searchByLabel = m.top.findNode("searchByLabel")
+    ' m.searchByLabel.font.size = 30
 
     'Actors Label
     m.searchResultLabel = m.top.findNode("searchResultLabel")
@@ -44,22 +44,24 @@ sub init()
 
 end sub
 
-sub initializeSearchOptionsGroup() 
-    m.searchOptionsGroup = m.top.findNode("searchOptionsGroup")
-    m.searchOptionsGroup.buttons = [ "Movies", "Series" ] 
-    m.searchOptionsGroup.focusedTextColor = "0x72D7EEFF" 
-    m.searchOptionsGroup.iconUri = "pkg:/images/stars/x_square_icon.png" 
-    m.searchOptionsGroup.focusedIconUri = "pkg:/images/stars/x_square_icon.png" 
-    m.searchOptionsGroup.itemSpacings = 15 
-    'm.searchOptionsGroup.focusButton = 0 
-    m.searchOptionsGroup.focusFootprintBitmapUri = "pkg:/images/stars/focusFootprint.png"
-    m.searchOptionsGroup.focusBitmapUri = "pkg:/images/stars/focus.png"
-    m.searchOptionsGroup.observeField("buttonSelected", "onSearchOptionsGroupButtonSelected")
-end sub
+' sub initializeSearchOptionsGroup() 
+'     m.searchOptionsGroup = m.top.findNode("searchOptionsGroup")
+'     m.searchOptionsGroup.buttons = [ "Movies", "Series" ] 
+'     m.searchOptionsGroup.focusedTextColor = "0x72D7EEFF" 
+'     m.searchOptionsGroup.iconUri = "pkg:/images/stars/x_square_icon.png" 
+'     m.searchOptionsGroup.focusedIconUri = "pkg:/images/stars/x_square_icon.png" 
+'     m.searchOptionsGroup.itemSpacings = 15 
+'     m.searchOptionsGroup.focusButton = 0 
+'     m.searchOptionsGroup.rightJustify = true 
+'     m.searchOptionsGroup.layoutDirection = "vert"
+'     m.searchOptionsGroup.focusFootprintBitmapUri = "pkg:/images/stars/focusFootprint.png"
+'     m.searchOptionsGroup.focusBitmapUri = "pkg:/images/stars/focus.png"
+'     m.searchOptionsGroup.observeField("buttonSelected", "onSearchOptionsGroupButtonSelected")
+' end sub
 
-sub onSearchOptionsGroupButtonSelected()
-    m.searchOptionsGroup.iconUri = "pkg:/images/stars/confirm-large-light.png"
-end sub
+' sub onSearchOptionsGroupButtonSelected()
+'     m.searchOptionsGroup.iconUri = "pkg:/images/stars/confirm-large-light.png"
+' end sub
 
 ' *************************************************
 ' Function that returns movieIndex
@@ -179,12 +181,12 @@ sub setContent(ev)
 end sub
 
 function onKeyEvent(key as String, press as Boolean) as Boolean
-    'stop
+    
     handled = false
     if press then
         actorsRowList = m.top.findNode("actorsRowList") 
-        'stop
-        if (m.top.focusedchild.id = "keyboardGroup" and key = "down")
+        
+        if (m.top.getchildren(-1,0)[2].getchildren(-1,0)[0].id = "keyboardGroup" and key = "down") 'todo refactor needed
             m.keyboard.focusable = false
             m.keyboard.setFocus(false)
             m.actorsRowList.focusable = true
@@ -212,13 +214,12 @@ function onKeyEvent(key as String, press as Boolean) as Boolean
         '     m.keyboard.setFocus(true)
         '     handled = true
             
-        else if (m.top.focusedchild.focusedchild.id = "actorsRowList" and key = "up")
+        else if (m.top.getchildren(-1,0)[2].getchildren(-1,0)[1].getchildren(-1,0)[1].id = "actorsRowList" and key = "up") 'todo refactor needed
             m.actorsRowList.focusable = false
             m.actorsRowList.setFocus(false)
             m.keyboard.focusable = true
             m.keyboard.setFocus(true)
             handled = true
-            'stop
         end if
     end if
     return handled

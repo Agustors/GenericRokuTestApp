@@ -35,9 +35,9 @@ function onKeyEvent(key as String, press as Boolean) as Boolean
         handled = restorePreviousView()
     else if (key = "options") then
         handled = showView("SearchView")
-        m.currentView.getchildren(-1,0)[4].focusable = true
+        m.currentView.getchildren(-1,0)[2].getchildren(-1,0)[0].focusable = true 'todo refactor needed
+        'm.currentView.getchildren(-1,0)[2].focusable = true 
         'm.currentView.getchildren(-1,0)[4].focusedChild.setFocus(true)
-        'stop
     end if
   end if
   return true
