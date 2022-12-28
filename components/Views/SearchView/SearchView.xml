@@ -46,12 +46,12 @@
                 
         <!-- </ButtonGroup> -->
                 
-        <Group id="keyboardGroup" translation = "[190,110]">
+        <Group id="keyboardGroup" translation = "[190,90]">
             <Keyboard id = "Keyboard" />
         </Group>
 
 
-        <Group id="SearchResultsGroup" translation = "[75,375]">
+        <Group id="SearchResultsGroup" translation = "[75,355]">
             <Label 
                 id="searchResultLabel" 
                 text = "Movies"
@@ -80,15 +80,13 @@
 
             <Animation
                 id="testAnimation"
-                duration="2"
+                duration="1"
                 repeat="false"
-                control="start"
                 easeFunction="linear">
                 <Vector2DFieldInterpolator
                     id = "testVector2D"
                     key="[0.0, 0.5, 1.0]"
-                    keyValue="[ [0.0, 0.0], [0.0, -275.0], [0.0, -275.0] ]"
-                    fieldToInterp="containerGroup.translation"   />
+                       />
 
             </Animation>
         </Group>

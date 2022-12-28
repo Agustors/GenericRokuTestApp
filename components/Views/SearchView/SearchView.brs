@@ -7,6 +7,12 @@ sub init()
 
     'keyboard
     m.keyboard = m.top.findNode("keyboard")
+    
+    'testAnimation
+    m.testVector2D = m.top.findNode("testVector2D")
+    
+    'testAnimation
+    m.testAnimation = m.top.findNode("testAnimation")
 
     'Search By label
     ' m.searchByLabel = m.top.findNode("searchByLabel")
@@ -40,7 +46,7 @@ sub init()
     m.actorsRowList.observeField("rowItemSelected","onActorsRowListItemSelectedChanged")
 
     'FocusedChild
-    m.top.observeField("FocusedChild","onFocusedChildChanged")
+    ' m.top.observeField("FocusedChild","onFocusedChildChanged")
 
 end sub
 
@@ -191,6 +197,9 @@ function onKeyEvent(key as String, press as Boolean) as Boolean
             m.keyboard.setFocus(false)
             m.actorsRowList.focusable = true
             m.actorsRowList.setFocus(true)
+            m.testAnimation.control="start"
+            m.testVector2D.fieldToInterp = "containerGroup.translation"
+            m.testVector2D.keyValue="[ [0.0, 0.0], [0.0, -275.0], [0.0, -275.0] ]"
             handled = true
 
         ' else if (m.keyboard.hasFocus() and key = "left")
@@ -219,6 +228,9 @@ function onKeyEvent(key as String, press as Boolean) as Boolean
             m.actorsRowList.setFocus(false)
             m.keyboard.focusable = true
             m.keyboard.setFocus(true)
+            m.testAnimation.control="start"
+            m.testVector2D.fieldToInterp = "containerGroup.translation"
+            m.testVector2D.keyValue="[ [0.0, -275.0], [0.0, 0.0], [0.0, 0.0] ]"
             handled = true
         end if
     end if
