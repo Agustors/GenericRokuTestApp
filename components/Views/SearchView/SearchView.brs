@@ -13,6 +13,9 @@ sub init()
     
     'testAnimation
     m.testAnimation = m.top.findNode("testAnimation")
+    
+    'containerGroup
+    m.containerGroup = m.top.findNode("containerGroup")
 
     'Search By label
     ' m.searchByLabel = m.top.findNode("searchByLabel")
@@ -197,6 +200,7 @@ function onKeyEvent(key as String, press as Boolean) as Boolean
             m.keyboard.setFocus(false)
             m.actorsRowList.focusable = true
             m.actorsRowList.setFocus(true)
+            m.testVector2D.keyValue="[ [0.0, 0.0], [0.0, -275.0], [0.0, -275.0] ]" 'avoids flicks not 100% yet
             m.testAnimation.control="start"
             m.testVector2D.fieldToInterp = "containerGroup.translation"
             m.testVector2D.keyValue="[ [0.0, 0.0], [0.0, -275.0], [0.0, -275.0] ]"
@@ -228,6 +232,7 @@ function onKeyEvent(key as String, press as Boolean) as Boolean
             m.actorsRowList.setFocus(false)
             m.keyboard.focusable = true
             m.keyboard.setFocus(true)
+            m.testVector2D.keyValue="[ [0.0, -275.0], [0.0, 0.0], [0.0, 0.0] ]" 'avoids flicks not 100% yet
             m.testAnimation.control="start"
             m.testVector2D.fieldToInterp = "containerGroup.translation"
             m.testVector2D.keyValue="[ [0.0, -275.0], [0.0, 0.0], [0.0, 0.0] ]"

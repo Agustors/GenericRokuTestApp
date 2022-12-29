@@ -10,7 +10,7 @@
 
     <children>
 
-    <Group id="containerGroup" >
+    <Group id="containerGroup" translation = "[0,0]">
     
         <!-- <Label 
             id="searchByLabel" 
