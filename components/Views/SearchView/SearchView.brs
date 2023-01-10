@@ -48,29 +48,29 @@ sub init()
     m.actorsRowList = m.top.findNode("actorsRowList")
     m.actorsRowList.observeField("rowItemSelected","onActorsRowListItemSelectedChanged")
 
+    'textEditBox
+    m.Keyboard.observeField("text","searchByString")
+
     'FocusedChild
     ' m.top.observeField("FocusedChild","onFocusedChildChanged")
 
 end sub
 
-' sub initializeSearchOptionsGroup() 
-'     m.searchOptionsGroup = m.top.findNode("searchOptionsGroup")
-'     m.searchOptionsGroup.buttons = [ "Movies", "Series" ] 
-'     m.searchOptionsGroup.focusedTextColor = "0x72D7EEFF" 
-'     m.searchOptionsGroup.iconUri = "pkg:/images/stars/x_square_icon.png" 
-'     m.searchOptionsGroup.focusedIconUri = "pkg:/images/stars/x_square_icon.png" 
-'     m.searchOptionsGroup.itemSpacings = 15 
-'     m.searchOptionsGroup.focusButton = 0 
-'     m.searchOptionsGroup.rightJustify = true 
-'     m.searchOptionsGroup.layoutDirection = "vert"
-'     m.searchOptionsGroup.focusFootprintBitmapUri = "pkg:/images/stars/focusFootprint.png"
-'     m.searchOptionsGroup.focusBitmapUri = "pkg:/images/stars/focus.png"
-'     m.searchOptionsGroup.observeField("buttonSelected", "onSearchOptionsGroupButtonSelected")
-' end sub
+sub searchByString(ev)
+    executeSearchAPICall(ev.getData())
+end sub
 
-' sub onSearchOptionsGroupButtonSelected()
-'     m.searchOptionsGroup.iconUri = "pkg:/images/stars/confirm-large-light.png"
-' end sub
+sub executeSearchAPICall(value)
+    if value.trim().len() > 0 then
+        m.apiTask.callID = "search"
+        m.apiTask.callParams = {s: value.trim()} '= {s: value.trim(), filter: getSelectedFilterValue()}
+        m.apiTask.view = "SearchView"
+        m.apiTask.control = "RUN"
+    else
+        m.vodRowList.content = invalid
+        m.vodRowList.focusable = false
+    end if
+end sub
 
 ' *************************************************
 ' Function that returns movieIndex
@@ -200,7 +200,7 @@ function onKeyEvent(key as String, press as Boolean) as Boolean
             m.keyboard.setFocus(false)
             m.actorsRowList.focusable = true
             m.actorsRowList.setFocus(true)
-            m.testVector2D.keyValue="[ [0.0, 0.0], [0.0, -275.0], [0.0, -275.0] ]" 'avoids flicks not 100% yet
+            m.testVector2D.keyValue="[ [0.0, 0.0], [0.0, -275.0], [0.0, -275.0] ]" 'avoids "flicks"
             m.testAnimation.control="start"
             m.testVector2D.fieldToInterp = "containerGroup.translation"
             m.testVector2D.keyValue="[ [0.0, 0.0], [0.0, -275.0], [0.0, -275.0] ]"
@@ -232,7 +232,7 @@ function onKeyEvent(key as String, press as Boolean) as Boolean
             m.actorsRowList.setFocus(false)
             m.keyboard.focusable = true
             m.keyboard.setFocus(true)
-            m.testVector2D.keyValue="[ [0.0, -275.0], [0.0, 0.0], [0.0, 0.0] ]" 'avoids flicks not 100% yet
+            m.testVector2D.keyValue="[ [0.0, -275.0], [0.0, 0.0], [0.0, 0.0] ]" 'avoids "flicks"
             m.testAnimation.control="start"
             m.testVector2D.fieldToInterp = "containerGroup.translation"
             m.testVector2D.keyValue="[ [0.0, -275.0], [0.0, 0.0], [0.0, 0.0] ]"

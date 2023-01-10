@@ -5,6 +5,7 @@
   <interface>
     <field id = "callId" type = "string" />
     <field id = "callParams" type="assocarray" />
+    <field id = "view" type="string" />
     <field id = "content" type = "node" />
   </interface> 
 

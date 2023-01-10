@@ -77,7 +77,7 @@ sub getcontent()
         
         jsonResponse = parseJSON(response)
         response = invalid
-
+        print"jsonResponse: "jsonResponse
     end if
     'm.top.content = content
         PopularMoviesRow = createObject("roSGNode", "ContentNode")
@@ -87,6 +87,13 @@ sub getcontent()
             child.addFields(item)
         end for
         m.top.content = PopularMoviesRow
+        
+        'test how to send which view we have at the moment
+        if jsonResponse[0].show <> invalid
+            m.top.view = "SearchView"
+        end if
+        print"m.top.content: "m.top.content
+
 end sub
 
 ' *************************************************
@@ -97,6 +104,7 @@ end sub
 ' *************************************************
 function getAPICallConfig(callId, movieIndex=invalid)
     if movieIndex = invalid then movieIndex = "1"
+    query = "top" 'for test
     
     apiCallsList = {
         
@@ -117,6 +125,11 @@ function getAPICallConfig(callId, movieIndex=invalid)
         },
         "cast": {
             "endpoint" : "/shows/"+movieIndex+"/cast",
+            "contentNodeType":"ShowsContentNode",
+            "contentType":"ContentNodeList",
+        },
+        "search": {
+            "endpoint" : "/search/shows?q=:"+query,
             "contentNodeType":"ShowsContentNode",
             "contentType":"ContentNodeList",
         }

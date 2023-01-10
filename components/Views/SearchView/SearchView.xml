@@ -65,7 +65,7 @@
 
             <Rowlist 
                 id="actorsRowList"
-                itemComponentName = "RowListItem" 
+                itemComponentName = "SearchItem" 
                 itemSize = "[1190,240]" 
                 rowItemSize = "[[200, 200]]"
                 rowItemSpacing = "[[20, 0]]"
