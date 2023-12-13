@@ -9,33 +9,33 @@
 <script type = "text/brightscript" uri="pkg:/components/Views/HomeScreenView/HomeScreenView.brs"/>
 
 	<children>
-      <Label 
-	  	id="popularMoviesLabel" 
-      	text = "Popular Shows"
-      	width = "0" 
-      	height = "80" 
-      	horizAlign = "left"
-      	vertAlign ="center"
-		font="font:MediumBoldSystemFont"
-		translation = "[64,20]"
-      	/>
-
-	<Rowlist 
-		id="popularMoviesRowList"
-		itemComponentName = "RowListItem" 
-		itemSize = "[1216,240]" 
-		rowItemSize = "[[200, 200]]"
-		rowItemSpacing = "[[20, 0]]"
-		showRowCounter = "true"
-		rowCounterRightOffset = "2.0"
-		drawFocusFeedback = "true"
-		drawFocusFeedbackOnTop = "true"
-		vertFocusAnimationStyle = "fixedFocusWrap" 
-		rowFocusAnimationStyle = "floatingfocus"   
-		translation = "[50,100]"
-	/>
+		<Group id="contentRows" translation = "[160,290]">
+			<Label 
+				id="contentRowsLabel" 
+				text = "Popular Shows"
+				width = "0" 
+				height = "40" 
+				horizAlign = "left"
+				vertAlign ="center"
+				font="font:SmallestBoldSystemFont"
+				translation = "[0,0]"
+				/>
+			<Rowlist 
+				id="popularMoviesRowList"
+				itemComponentName = "RowListItem" 
+				itemSize = "[1216,240]" 
+				rowItemSize = "[[200, 200]]"
+				rowItemSpacing = "[[20, 0]]"
+				rowCounterRightOffset = "2.0"
+				drawFocusFeedback = "true"
+				drawFocusFeedbackOnTop = "true"
+				vertFocusAnimationStyle = "fixedFocusWrap" 
+				rowFocusAnimationStyle = "floatingfocus"   
+				translation = "[0,55]"
+			/>
+	</Group>
 	
-	<Poster
+	<!-- <Poster
 		id="search"
 		uri="pkg:/images/stars/search.png"
 		width="75.0"
@@ -49,7 +49,7 @@
 		font = "font:LargeBoldSystemFont" 
 		text = "Press * on remote to search videos.                Press * on remote to search videos.                Press * on remote to search videos."
 		horizAlign = "left" 
-		vertAlign = "top" />
+		vertAlign = "top" /> -->
 	
 	<!-- <SimpleLabel
 		id="testLabel"

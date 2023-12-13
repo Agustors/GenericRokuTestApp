@@ -2,9 +2,9 @@ function init()
     m.top.setFocus(true)
 
     'Title Label
-    m.popularMoviesLabel = m.top.findNode("popularMoviesLabel")
-    m.popularMoviesLabel.font.size=30
-    m.popularMoviesLabel.color="0x72D7EEFF"
+    m.contentRowsLabel = m.top.findNode("contentRowsLabel")
+    m.contentRowsLabel.font.size=20
+    m.contentRowsLabel.color="0x72D7EEFF"
 
     'RowList
     m.rowList = m.top.findNode("popularMoviesRowList")
@@ -30,11 +30,11 @@ function init()
 
     'scrolling label
     'm.top.backgroundURI = "pkg:/images/btt_back.png"
-    example = m.top.findNode("exampleScrollingLabel")
-    examplerect = example.boundingRect()
-    centerx = (1280 - examplerect.width) / 2 + 10
-    centery = (720 - examplerect.height) / 2 + 100
-    example.translation = [ centerx, centery ]
+    ' example = m.top.findNode("exampleScrollingLabel")
+    ' examplerect = example.boundingRect()
+    ' centerx = (1280 - examplerect.width) / 2 + 10
+    ' centery = (720 - examplerect.height) / 2 + 100
+    ' example.translation = [ centerx, centery ]
     m.top.setFocus(true)
 
 
