@@ -15,6 +15,8 @@ sub init()
     ' m.playButton.observeField("buttonSelected", "onShowVodButtonSelected")
     
     m.actorsRowList = m.top.findNode("actorsRowList")
+    ' m.actorsRowList.focusBitmapUri = "pkg:/images/backgrounds/nav_focus_off_footprint_fhd.9.png"
+    m.actorsRowList.focusBitmapUri = "pkg:/images/backgrounds/button_topnav_focused_fhd.9.png"
 
     'ApiTask
     m.apiTask = CreateObject("roSGNode","ApiTask")
@@ -120,8 +122,16 @@ sub setContent(ev)
             poster: data.content.person.image.medium,
         }
     else
+        'obtain correct description
+        if data.DoesExist("summary") then
+            descriptionStr = data.summary
+            content = data
+        else if data.DoesExist("show") then
+            descriptionStr = data.show.summary
+            content = data.show
+        end if
+            
         'code to delete html tags present in description text
-        descriptionStr = data.summary
         comboReplaceCases = [["<b>",""], ["</b>",""], ["<p>",""], ["</p>",""], ["<i>",""], ["</i>",""], ["<br />",""], ["/"," "]]
         for each combo in comboReplaceCases
             descriptionStr = descriptionStr.replace(combo[0],combo[1])
@@ -129,8 +139,8 @@ sub setContent(ev)
         
         itemContentArray = {}
         itemContentArray.data = {
-            title: data.name,
-            poster: data.image.original,
+            title: content.name,
+            poster: content.image.original,
             description: descriptionStr
         }
     end if

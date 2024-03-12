@@ -9,7 +9,43 @@
 <script type = "text/brightscript" uri="pkg:/components/Views/HomeScreenView/HomeScreenView.brs"/>
 
 	<children>
-		<Group id="contentRows" translation = "[160,290]">
+		<Group id="contentHighlight" translation = "[0,0]">
+			<Poster
+				id="contentHighlightImage"
+				uri="pkg:/images/backgrounds/bg1.png"
+				width="865"
+				height="510"
+				translation="[415,0]" />
+			<Poster
+				id="contentHighlightOverlay"
+				uri="pkg:/images/backgrounds/overlay_content_highlight_v2.png"
+				width="1280"
+				height="720"
+				translation="[0,0]" />
+			<Label 
+				id="contentHighlightTitle" 
+				text = "Title of show"
+				width = "0" 
+				height = "40" 
+				horizAlign = "left"
+				vertAlign ="center"
+				color="0xc0c0c0ff"
+				font="font:SmallSystemFont"
+				translation = "[20,30]"
+				/>
+			<Label
+				id="contentHighlightText"
+				text="The InfoPane node class is used to display an opaque, white-bordered, rounded rectangular label with text providing help for a specific setting. This component can be used to help customers successfully configure settings related to their account profile, closed captioning, parental controls, and so on."
+				color="0xc0c0c0ff"
+				font="font:SmallestSystemFont"
+				vertAlign="center"
+				numLines="6"
+				width = "420" 
+				height = "200" 
+				translation = "[20,90]"
+				wrap="true" />
+		</Group>
+		<Group id="contentRows" translation = "[0,315]">
 			<Label 
 				id="contentRowsLabel" 
 				text = "Popular Shows"
@@ -18,8 +54,22 @@
 				horizAlign = "left"
 				vertAlign ="center"
 				font="font:SmallestBoldSystemFont"
-				translation = "[0,0]"
+				translation = "[20,10]"
 				/>
+			<Rowlist 
+				id="popularMoviesRowList"
+				itemComponentName = "RowListItem" 
+				itemSize = "[1280,240]" 
+				rowItemSize = "[[200, 200]]"
+				rowItemSpacing = "[[20, 0]]"
+				rowCounterRightOffset = "2.0"
+				drawFocusFeedback = "true"
+				drawFocusFeedbackOnTop = "false"
+				vertFocusAnimationStyle = "fixedFocusWrap" 
+				rowFocusAnimationStyle = "floatingfocus"   
+				translation = "[20,55]"
+			/>
+
 			<Rowlist 
 				id="popularMoviesRowList"
 				itemComponentName = "RowListItem" 
@@ -28,10 +78,10 @@
 				rowItemSpacing = "[[20, 0]]"
 				rowCounterRightOffset = "2.0"
 				drawFocusFeedback = "true"
-				drawFocusFeedbackOnTop = "true"
+				drawFocusFeedbackOnTop = "false"
 				vertFocusAnimationStyle = "fixedFocusWrap" 
 				rowFocusAnimationStyle = "floatingfocus"   
-				translation = "[0,55]"
+				translation = "[0,155]"
 			/>
 	</Group>
 	

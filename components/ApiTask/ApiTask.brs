@@ -89,9 +89,9 @@ sub getcontent()
         m.top.content = PopularMoviesRow
         
         'test how to send which view we have at the moment
-        if jsonResponse[0].show <> invalid
-            m.top.view = "SearchView"
-        end if
+        ' if jsonResponse[0].show <> invalid
+        '     m.top.view = "SearchView"
+        ' end if
         print"m.top.content: "m.top.content
 
 end sub
@@ -103,8 +103,13 @@ end sub
 ' @return - apiCallsList[callId]
 ' *************************************************
 function getAPICallConfig(callId, movieIndex=invalid)
+    
     if movieIndex = invalid then movieIndex = "1"
-    query = "top" 'for test
+    if type(m.top.callParams) = "String" then 
+        query = m.top.callParams
+    else 
+        query = ""
+    end if
     
     apiCallsList = {
         

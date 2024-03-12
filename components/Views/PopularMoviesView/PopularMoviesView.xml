@@ -29,7 +29,7 @@
 		showRowCounter = "true"
 		rowCounterRightOffset = "2.0"
 		drawFocusFeedback = "true"
-		drawFocusFeedbackOnTop = "true"
+		drawFocusFeedbackOnTop = "false"
 		vertFocusAnimationStyle = "fixedFocusWrap" 
 		rowFocusAnimationStyle = "floatingfocus"   
 		translation = "[50,100]"

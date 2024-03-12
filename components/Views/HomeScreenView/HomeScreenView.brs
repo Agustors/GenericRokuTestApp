@@ -3,13 +3,16 @@ function init()
 
     'Title Label
     m.contentRowsLabel = m.top.findNode("contentRowsLabel")
-    m.contentRowsLabel.font.size=20
-    m.contentRowsLabel.color="0x72D7EEFF"
+    m.contentRowsLabel.font.size = 20
+    m.contentRowsLabel.color = "0x72D7EEFF"
+
 
     'RowList
     m.rowList = m.top.findNode("popularMoviesRowList")
     m.rowList.observeField("rowItemSelected","onItemSelectedChanged")
     m.rowList.observeField("rowItemFocused","onItemFocusedChanged")
+    ' m.rowList.focusBitmapUri = "pkg:/images/backgrounds/nav_focus_off_footprint_fhd.9.png"
+    m.rowList.focusBitmapUri = "pkg:/images/backgrounds/button_topnav_focused_fhd.9.png"
 
     'ApiTask
     m.apiTask = CreateObject("roSGNode","ApiTask")

@@ -7,6 +7,7 @@
     </interface>
 
     <script type="text/brightscript" uri="pkg:/components/Views/SearchView/SearchView.brs"/>
+    <script type="text/brightscript" uri="pkg:/components/Support/Functions.brs"/>
 
     <children>
 
@@ -72,7 +73,7 @@
                 showRowCounter = "true"
                 rowCounterRightOffset = "2.0"
                 drawFocusFeedback = "true"
-                drawFocusFeedbackOnTop = "true"
+                drawFocusFeedbackOnTop = "false"
                 vertFocusAnimationStyle = "fixedFocusWrap" 
                 rowFocusAnimationStyle = "floatingfocus"   
                 translation = "[0,70]"
