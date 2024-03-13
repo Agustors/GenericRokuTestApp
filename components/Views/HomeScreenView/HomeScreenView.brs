@@ -1,6 +1,15 @@
 function init()
     m.top.setFocus(true)
 
+    'contentHighlightTitle
+    m.contentHighlightTitle = m.top.findNode("contentHighlightTitle")
+
+    'contentHighlightText
+    m.contentHighlightText = m.top.findNode("contentHighlightText")
+
+    'contentHighlightImage
+    m.contentHighlightImage = m.top.findNode("contentHighlightImage")
+
     'Title Label
     m.contentRowsLabel = m.top.findNode("contentRowsLabel")
     m.contentRowsLabel.font.size = 20
@@ -16,7 +25,7 @@ function init()
 
     'ApiTask
     m.apiTask = CreateObject("roSGNode","ApiTask")
-    m.apiTask.observeField("content","setPopularMoviesRowListContent")
+    m.apiTask.observeField("content","setHomeScreenContent")
 
     'Initial Call Parameters
     initialCallparams = {page: "1"}
@@ -38,6 +47,10 @@ function init()
     ' centerx = (1280 - examplerect.width) / 2 + 10
     ' centery = (720 - examplerect.height) / 2 + 100
     ' example.translation = [ centerx, centery ]
+
+    'FocusedChild
+    m.top.observeField("FocusedChild","onFocusedChildChanged")
+
     m.top.setFocus(true)
 
 
@@ -49,7 +62,7 @@ sub executeShowsAPICall(callParams)
     m.apiTask.control = "RUN"
 end sub
 
-sub setPopularMoviesRowListContent(ev)
+sub setHomeScreenContent(ev)
     data = ev.getData()
     m.rowList.focusable = false
     if data.getChildCount() > 0 then
@@ -65,6 +78,9 @@ sub setPopularMoviesRowListContent(ev)
         m.rowList.focusable = true
         m.rowList.setFocus(true)
     end if
+    
+    item = data.getchildren(-1,0)[0]
+    populateContentHighlight(item)
 end sub
 
 sub onItemSelectedChanged(ev)
@@ -102,4 +118,13 @@ sub onItemFocusedChanged(ev)
         callParams = {page: nextPage} 'next page
         executeShowsAPICall(callParams)
     end if
+
+    item = content.getchildren(-1,0)[0].getchildren(-1,0)[focusedItem]
+    populateContentHighlight(item)
+end sub
+
+sub populateContentHighlight(item)
+    m.contentHighlightTitle.text = item?.name 
+    m.contentHighlightText.text = item?.summary
+    m.contentHighlightImage.uri = item?.image?.original
 end sub

@@ -191,18 +191,14 @@ end sub
 
 function onKeyEvent(key as String, press as Boolean) as Boolean
     
-    node = getFocusedNodeObj(m.top)
     keyboardGroup = m.top.findNode("keyboardGroup")
     actorsRowList = m.top.findNode("actorsRowList")
-    ?"node: " node
-    ?"m.top: " m.top
-    ?"m.top.focusedChild: " m.top.focusedChild
+
     handled = false
     if press then
         actorsRowList = m.top.findNode("actorsRowList") 
 
         if (keyboardGroup.id = "keyboardGroup" and key = "down")'(m.top.getchildren(-1,0)[2].getchildren(-1,0)[0].id = "keyboardGroup" and key = "down") 'todo refactor needed
-            ? "node.id: " node.id
             m.keyboard.focusable = false
             m.keyboard.setFocus(false)
             m.actorsRowList.focusable = true
@@ -236,7 +232,6 @@ function onKeyEvent(key as String, press as Boolean) as Boolean
         '     handled = true
             
         else if (actorsRowList.id = "actorsRowList" and key = "up")'(m.top.getchildren(-1,0)[2].getchildren(-1,0)[1].getchildren(-1,0)[1].id = "actorsRowList" and key = "up") 'todo refactor needed
-            ? "node.id: " node.id
             m.actorsRowList.focusable = false
             m.actorsRowList.setFocus(false)
             m.keyboard.focusable = true

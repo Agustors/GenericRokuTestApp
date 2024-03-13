@@ -4,6 +4,7 @@
 
  <interface> 
 	<field id = "movieIndex" type = "string" alwaysnotify="true" onChange = "onMovieIndexChanged"/>
+	<field id = "itemContent" type = "node" />
 </interface>
 
 <script type = "text/brightscript" uri="pkg:/components/Views/HomeScreenView/HomeScreenView.brs"/>
@@ -12,10 +13,10 @@
 		<Group id="contentHighlight" translation = "[0,0]">
 			<Poster
 				id="contentHighlightImage"
-				uri="pkg:/images/backgrounds/bg1.png"
-				width="865"
+				uri="pkg:/images/backgrounds/overlay_endcard.png"
+				width="845"
 				height="510"
-				translation="[415,0]" />
+				translation="[440,0]" />
 			<Poster
 				id="contentHighlightOverlay"
 				uri="pkg:/images/backgrounds/overlay_content_highlight_v2.png"
@@ -40,12 +41,12 @@
 				font="font:SmallestSystemFont"
 				vertAlign="center"
 				numLines="6"
-				width = "420" 
+				width = "530" 
 				height = "200" 
 				translation = "[20,90]"
 				wrap="true" />
 		</Group>
-		<Group id="contentRows" translation = "[0,315]">
+		<Group id="contentRows" translation = "[0,330]">
 			<Label 
 				id="contentRowsLabel" 
 				text = "Popular Shows"
