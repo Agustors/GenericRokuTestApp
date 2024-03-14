@@ -2,6 +2,7 @@ sub init()
     'Field to control view that must be created once
     'Names inside viewControl must be the component names that must only have one "instance" running
     m.viewControl={
+        HomeScreenView: false
         PopularMoviesView: false
         DetailView: false
         VideoView: false
@@ -9,7 +10,7 @@ sub init()
         SearchView: false
     }
     m.viewStack = [] 'Field to store the previous screen in the app
-    showView("PopularMoviesView") 'Show/Create the first view of the app
+    showView("HomeScreenView") 'Show/Create the first view of the app
     m.top.observeField("selectedContentNode","onSelectedContentNodeChanged")
     m.top.observeField("playContent","onPlayContentChanged")
 end sub

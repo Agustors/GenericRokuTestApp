@@ -35,7 +35,7 @@ sub init()
     ' m.playButton.visible = false
     ' m.playButton.observeField("buttonSelected", "onShowVodButtonSelected")
     
-    m.actorsRowList = m.top.findNode("actorsRowList")
+    ' m.actorsRowList = m.top.findNode("actorsRowList")
 
     'ApiTask
     m.apiTask = CreateObject("roSGNode","ApiTask")
@@ -61,14 +61,14 @@ sub searchByString(ev)
 end sub
 
 sub executeSearchAPICall(value)
-    if value.trim().len() > 0 then
+    if value.trim().len() >= 3 then
         m.apiTask.callID = "search"
-        m.apiTask.callParams = {s: value.trim()} '= {s: value.trim(), filter: getSelectedFilterValue()}
+        m.apiTask.callParams = {searchString: value.trim()} '= {s: value.trim(), filter: getSelectedFilterValue()}
         m.apiTask.view = "SearchView"
         m.apiTask.control = "RUN"
     else
-        m.vodRowList.content = invalid
-        m.vodRowList.focusable = false
+        ' m.vodRowList.content = invalid
+        ' m.vodRowList.focusable = false
     end if
 end sub
 
@@ -191,11 +191,14 @@ end sub
 
 function onKeyEvent(key as String, press as Boolean) as Boolean
     
+    keyboardGroup = m.top.findNode("keyboardGroup")
+    actorsRowList = m.top.findNode("actorsRowList")
+
     handled = false
     if press then
         actorsRowList = m.top.findNode("actorsRowList") 
-        
-        if (m.top.getchildren(-1,0)[2].getchildren(-1,0)[0].id = "keyboardGroup" and key = "down") 'todo refactor needed
+
+        if (keyboardGroup.id = "keyboardGroup" and key = "down")'(m.top.getchildren(-1,0)[2].getchildren(-1,0)[0].id = "keyboardGroup" and key = "down") 'todo refactor needed
             m.keyboard.focusable = false
             m.keyboard.setFocus(false)
             m.actorsRowList.focusable = true
@@ -204,6 +207,7 @@ function onKeyEvent(key as String, press as Boolean) as Boolean
             m.testAnimation.control="start"
             m.testVector2D.fieldToInterp = "containerGroup.translation"
             m.testVector2D.keyValue="[ [0.0, 0.0], [0.0, -275.0], [0.0, -275.0] ]"
+
             handled = true
 
         ' else if (m.keyboard.hasFocus() and key = "left")
@@ -227,7 +231,7 @@ function onKeyEvent(key as String, press as Boolean) as Boolean
         '     m.keyboard.setFocus(true)
         '     handled = true
             
-        else if (m.top.getchildren(-1,0)[2].getchildren(-1,0)[1].getchildren(-1,0)[1].id = "actorsRowList" and key = "up") 'todo refactor needed
+        else if (actorsRowList.id = "actorsRowList" and key = "up")'(m.top.getchildren(-1,0)[2].getchildren(-1,0)[1].getchildren(-1,0)[1].id = "actorsRowList" and key = "up") 'todo refactor needed
             m.actorsRowList.focusable = false
             m.actorsRowList.setFocus(false)
             m.keyboard.focusable = true
@@ -236,6 +240,7 @@ function onKeyEvent(key as String, press as Boolean) as Boolean
             m.testAnimation.control="start"
             m.testVector2D.fieldToInterp = "containerGroup.translation"
             m.testVector2D.keyValue="[ [0.0, -275.0], [0.0, 0.0], [0.0, 0.0] ]"
+
             handled = true
         end if
     end if

@@ -20,6 +20,7 @@ end sub
 ' *************************************************
 sub getcontent()
     print"m.top.callParams.movieIndex: "m.top.callParams.movieIndex
+    print"m.top.callParams.searchString: "m.top.callParams.searchString
     
     if m.top.callParams.DoesExist("movieIndex")
         apiCallConfig = getAPICallConfig(m.top.callId, m.top.callParams.movieIndex)
@@ -69,6 +70,7 @@ sub getcontent()
 
     urlTransferObj.InitClientCertificates()
     urlTransferObj.setUrl(m.baseUrl+apiCallConfig.endpoint+parameters)
+    ?"m.baseUrl+apiCallConfig.endpoint+parameters: " m.baseUrl+apiCallConfig.endpoint+parameters
     
     response = urlTransferObj.getToString()
     'print"response: " response
@@ -89,9 +91,9 @@ sub getcontent()
         m.top.content = PopularMoviesRow
         
         'test how to send which view we have at the moment
-        if jsonResponse[0].show <> invalid
-            m.top.view = "SearchView"
-        end if
+        ' if jsonResponse[0].show <> invalid
+        '     m.top.view = "SearchView"
+        ' end if
         print"m.top.content: "m.top.content
 
 end sub
@@ -103,8 +105,15 @@ end sub
 ' @return - apiCallsList[callId]
 ' *************************************************
 function getAPICallConfig(callId, movieIndex=invalid)
+    
     if movieIndex = invalid then movieIndex = "1"
-    query = "top" 'for test
+    if m.top.callParams.movieIndex <> invalid then 
+        query = m.top.callParams
+    else if m.top.callParams.searchString <> invalid
+        query = m.top.callParams.searchString
+    else 
+        query = ""
+    end if
     
     apiCallsList = {
         

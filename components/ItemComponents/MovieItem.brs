@@ -14,10 +14,15 @@ sub init()
             title: m.top.itemContent.name,
         }
         'ToDo: the following m.top.itemContent.person.image may be invalid in some cases, better validation is required
-    else if m.top.itemContent.person.image.medium <> invalid and m.top.itemContent.person.name <> invalid 'm.top.itemContent.contentType <> invalid and m.top.itemContent.contentType = "actorsRowListContent"
+    else if m.top.itemContent.DoesExist("person") and m.top.itemContent.person <> invalid and m.top.itemContent.person.name <> invalid 'm.top.itemContent.contentType <> invalid and m.top.itemContent.contentType = "actorsRowListContent"
         itemContentArray.data = {
             poster: m.top.itemContent.person.image.medium, 'm.top.itemContent.getchild(0).getchildren(-1,0)[0].person.image.medium
             title: m.top.itemContent.person.name,
+        }
+    else if m.top.itemContent.DoesExist("show") <> invalid and m.top.itemContent.show.image <> invalid and m.top.itemContent.show.name <> invalid 'm.top.itemContent.contentType <> invalid and m.top.itemContent.contentType = "actorsRowListContent"
+        itemContentArray.data = {
+            poster: m.top.itemContent.show.image.medium, 'm.top.itemContent.getchild(0).getchildren(-1,0)[0].person.image.medium
+            title: m.top.itemContent.show.name,
         }
     else
       itemContentArray.data = {

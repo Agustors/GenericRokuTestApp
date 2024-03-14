@@ -1,19 +1,31 @@
 function init()
     m.top.setFocus(true)
 
+    'contentHighlightTitle
+    m.contentHighlightTitle = m.top.findNode("contentHighlightTitle")
+
+    'contentHighlightText
+    m.contentHighlightText = m.top.findNode("contentHighlightText")
+
+    'contentHighlightImage
+    m.contentHighlightImage = m.top.findNode("contentHighlightImage")
+
     'Title Label
-    m.popularMoviesLabel = m.top.findNode("popularMoviesLabel")
-    m.popularMoviesLabel.font.size=30
-    m.popularMoviesLabel.color="0x72D7EEFF"
+    m.contentRowsLabel = m.top.findNode("contentRowsLabel")
+    m.contentRowsLabel.font.size = 20
+    m.contentRowsLabel.color = "0x72D7EEFF"
+
 
     'RowList
     m.rowList = m.top.findNode("popularMoviesRowList")
     m.rowList.observeField("rowItemSelected","onItemSelectedChanged")
     m.rowList.observeField("rowItemFocused","onItemFocusedChanged")
+    ' m.rowList.focusBitmapUri = "pkg:/images/backgrounds/nav_focus_off_footprint_fhd.9.png"
+    m.rowList.focusBitmapUri = "pkg:/images/backgrounds/button_topnav_focused_fhd.9.png"
 
     'ApiTask
     m.apiTask = CreateObject("roSGNode","ApiTask")
-    m.apiTask.observeField("content","setPopularMoviesRowListContent")
+    m.apiTask.observeField("content","setHomeScreenContent")
 
     'Initial Call Parameters
     initialCallparams = {page: "1"}
@@ -30,11 +42,15 @@ function init()
 
     'scrolling label
     'm.top.backgroundURI = "pkg:/images/btt_back.png"
-    example = m.top.findNode("exampleScrollingLabel")
-    examplerect = example.boundingRect()
-    centerx = (1280 - examplerect.width) / 2 + 10
-    centery = (720 - examplerect.height) / 2 + 100
-    example.translation = [ centerx, centery ]
+    ' example = m.top.findNode("exampleScrollingLabel")
+    ' examplerect = example.boundingRect()
+    ' centerx = (1280 - examplerect.width) / 2 + 10
+    ' centery = (720 - examplerect.height) / 2 + 100
+    ' example.translation = [ centerx, centery ]
+
+    'FocusedChild
+    m.top.observeField("FocusedChild","onFocusedChildChanged")
+
     m.top.setFocus(true)
 
 
@@ -46,7 +62,7 @@ sub executeShowsAPICall(callParams)
     m.apiTask.control = "RUN"
 end sub
 
-sub setPopularMoviesRowListContent(ev)
+sub setHomeScreenContent(ev)
     data = ev.getData()
     m.rowList.focusable = false
     if data.getChildCount() > 0 then
@@ -62,6 +78,9 @@ sub setPopularMoviesRowListContent(ev)
         m.rowList.focusable = true
         m.rowList.setFocus(true)
     end if
+    
+    item = data.getchildren(-1,0)[0]
+    populateContentHighlight(item)
 end sub
 
 sub onItemSelectedChanged(ev)
@@ -99,4 +118,20 @@ sub onItemFocusedChanged(ev)
         callParams = {page: nextPage} 'next page
         executeShowsAPICall(callParams)
     end if
+
+    item = content.getchildren(-1,0)[0].getchildren(-1,0)[focusedItem]
+    populateContentHighlight(item)
+end sub
+
+sub populateContentHighlight(item)
+    descriptionStr = item.summary
+    'code to delete html tags present in description text
+    comboReplaceCases = [["<b>",""], ["</b>",""], ["<p>",""], ["</p>",""], ["<i>",""], ["</i>",""], ["<br />",""], ["/"," "]]
+    for each combo in comboReplaceCases
+        descriptionStr = descriptionStr.replace(combo[0],combo[1])
+    end for
+    
+    m.contentHighlightTitle.text = item?.name 
+    m.contentHighlightText.text = descriptionStr
+    m.contentHighlightImage.uri = item?.image?.original
 end sub
