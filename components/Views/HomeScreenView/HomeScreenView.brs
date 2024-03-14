@@ -124,7 +124,14 @@ sub onItemFocusedChanged(ev)
 end sub
 
 sub populateContentHighlight(item)
+    descriptionStr = item.summary
+    'code to delete html tags present in description text
+    comboReplaceCases = [["<b>",""], ["</b>",""], ["<p>",""], ["</p>",""], ["<i>",""], ["</i>",""], ["<br />",""], ["/"," "]]
+    for each combo in comboReplaceCases
+        descriptionStr = descriptionStr.replace(combo[0],combo[1])
+    end for
+    
     m.contentHighlightTitle.text = item?.name 
-    m.contentHighlightText.text = item?.summary
+    m.contentHighlightText.text = descriptionStr
     m.contentHighlightImage.uri = item?.image?.original
 end sub

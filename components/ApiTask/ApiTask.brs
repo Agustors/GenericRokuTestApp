@@ -20,6 +20,7 @@ end sub
 ' *************************************************
 sub getcontent()
     print"m.top.callParams.movieIndex: "m.top.callParams.movieIndex
+    print"m.top.callParams.searchString: "m.top.callParams.searchString
     
     if m.top.callParams.DoesExist("movieIndex")
         apiCallConfig = getAPICallConfig(m.top.callId, m.top.callParams.movieIndex)
@@ -69,6 +70,7 @@ sub getcontent()
 
     urlTransferObj.InitClientCertificates()
     urlTransferObj.setUrl(m.baseUrl+apiCallConfig.endpoint+parameters)
+    ?"m.baseUrl+apiCallConfig.endpoint+parameters: " m.baseUrl+apiCallConfig.endpoint+parameters
     
     response = urlTransferObj.getToString()
     'print"response: " response
@@ -105,8 +107,10 @@ end sub
 function getAPICallConfig(callId, movieIndex=invalid)
     
     if movieIndex = invalid then movieIndex = "1"
-    if type(m.top.callParams) = "String" then 
+    if m.top.callParams.movieIndex <> invalid then 
         query = m.top.callParams
+    else if m.top.callParams.searchString <> invalid
+        query = m.top.callParams.searchString
     else 
         query = ""
     end if

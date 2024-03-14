@@ -35,7 +35,7 @@ sub init()
     ' m.playButton.visible = false
     ' m.playButton.observeField("buttonSelected", "onShowVodButtonSelected")
     
-    m.actorsRowList = m.top.findNode("actorsRowList")
+    ' m.actorsRowList = m.top.findNode("actorsRowList")
 
     'ApiTask
     m.apiTask = CreateObject("roSGNode","ApiTask")
@@ -61,9 +61,9 @@ sub searchByString(ev)
 end sub
 
 sub executeSearchAPICall(value)
-    if value.trim().len() > 0 then
+    if value.trim().len() >= 3 then
         m.apiTask.callID = "search"
-        m.apiTask.callParams = {s: value.trim()} '= {s: value.trim(), filter: getSelectedFilterValue()}
+        m.apiTask.callParams = {searchString: value.trim()} '= {s: value.trim(), filter: getSelectedFilterValue()}
         m.apiTask.view = "SearchView"
         m.apiTask.control = "RUN"
     else
