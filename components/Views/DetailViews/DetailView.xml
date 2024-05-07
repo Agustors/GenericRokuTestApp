@@ -31,21 +31,21 @@
             <Label 
                 id = "assetTitle" 
                 translation = "[365,74]"
-                font="font:MediumBoldSystemFont"
+                font="font:SmallSystemFont"
                 text = "Title:"
                 color = "0x72D7EEFF"/>
             
             <Label 
                 id = "assetTitleText" 
                 translation = "[430,74]"
-                font="font:MediumBoldSystemFont"
+                font="font:SmallSystemFont"
                 text = ""
                 color = "0xFFFFFFFF"/>
 
             <Label 
                 id = "assetDescription" 
                 translation = "[365,120]"
-                font="font:MediumBoldSystemFont"
+                font="font:SmallSystemFont"
                 text = "Description:"
                 color = "0x72D7EEFF"/>
 

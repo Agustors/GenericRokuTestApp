@@ -2,7 +2,7 @@
 
 <component name="HomeScreenView" extends="Group"> 
 
- <interface> 
+<interface> 
 	<field id = "movieIndex" type = "string" alwaysnotify="true" onChange = "onMovieIndexChanged"/>
 	<field id = "itemContent" type = "node" />
 </interface>
@@ -25,7 +25,7 @@
 				translation="[0,0]" />
 			<Label 
 				id="contentHighlightTitle" 
-				text = "Title of show"
+				text = ""
 				width = "0" 
 				height = "40" 
 				horizAlign = "left"
@@ -36,7 +36,7 @@
 				/>
 			<Label
 				id="contentHighlightText"
-				text="The InfoPane node class is used to display an opaque, white-bordered, rounded rectangular label with text providing help for a specific setting. This component can be used to help customers successfully configure settings related to their account profile, closed captioning, parental controls, and so on."
+				text=""
 				color="0xc0c0c0ff"
 				font="font:SmallestSystemFont"
 				vertAlign="center"
@@ -54,7 +54,8 @@
 				height = "40" 
 				horizAlign = "left"
 				vertAlign ="center"
-				font="font:SmallestBoldSystemFont"
+				visible = "false"
+				font="font:SmallSystemFont"
 				translation = "[20,10]"
 				/>
 			<Rowlist 

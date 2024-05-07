@@ -16,6 +16,9 @@ sub init()
     
     'containerGroup
     m.containerGroup = m.top.findNode("containerGroup")
+    
+    'SearchResultsGroup
+    m.SearchResultsGroup = m.top.findNode("SearchResultsGroup")
 
     'Search By label
     ' m.searchByLabel = m.top.findNode("searchByLabel")
@@ -23,7 +26,7 @@ sub init()
 
     'Actors Label
     m.searchResultLabel = m.top.findNode("searchResultLabel")
-    m.searchResultLabel.font.size=30
+    m.searchResultLabel.font.size=20
     m.searchResultLabel.color="0x72D7EEFF"
 
     m.assetTitleText = m.top.findNode("assetTitleText")
@@ -55,6 +58,13 @@ sub init()
     ' m.top.observeField("FocusedChild","onFocusedChildChanged")
 
 end sub
+
+' sub executeSuggestionsAPICall()
+'     m.apiTask.callID = "episodes"
+'     ' m.apiTask.callParams = callParams 
+'     m.apiTask.control = "RUN"
+'     m.apiTask.observeField("content","setActorsRowListContent")
+' end sub
 
 sub searchByString(ev)
     executeSearchAPICall(ev.getData())
@@ -97,7 +107,7 @@ end function
 ' *************************************************
 sub executeCastAPICall(movieIndex)
     callParams = {movieIndex: movieIndex}
-    m.apiTask.callID = "Cast"
+    m.apiTask.callID = "episodes"
     m.apiTask.callParams = callParams
     m.apiTask.control = "RUN"
 end sub
@@ -123,6 +133,7 @@ end sub
 ' @return no params
 ' *************************************************
 sub setActorsRowListContent(ev)
+    m.searchResultLabel.text = "Search Results:"
     data = ev.getData()
     actorsRowListContent = CreateObject("roSGNode","ContentNode")
     actorsRowListContent.appendChild(data)
