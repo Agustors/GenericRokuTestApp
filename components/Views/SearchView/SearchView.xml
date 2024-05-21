@@ -52,17 +52,18 @@
         </Group>
 
 
-        <Group id="SearchResultsGroup" translation = "[75,355]">
+        <Group id="SearchResultsGroup" translation = "[75,355]" >
             <Label 
-                id="searchResultLabel" 
-                text = "Movies"
-                width = "0" 
-                height = "80" 
-                horizAlign = "left"
-                vertAlign ="center"
-                font="font:MediumBoldSystemFont"
-                translation = "[5,20]"
-                />
+				id="searchResultLabel" 
+				text = "Search Results:"
+				width = "0" 
+				height = "20" 
+				horizAlign = "left"
+				vertAlign ="center"
+				visible = "true"
+				font="font:SmallestBoldSystemFont"
+				translation = "[0,65]"
+				/>
 
             <Rowlist 
                 id="actorsRowList"

@@ -108,7 +108,7 @@ function getAPICallConfig(callId, movieIndex=invalid)
     
     if movieIndex = invalid then movieIndex = "1"
     if m.top.callParams.movieIndex <> invalid then 
-        query = m.top.callParams
+        query = m.top.callParams.movieIndex
     else if m.top.callParams.searchString <> invalid
         query = m.top.callParams.searchString
     else 

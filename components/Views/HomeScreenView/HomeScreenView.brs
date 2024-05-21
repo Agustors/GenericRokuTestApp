@@ -3,6 +3,7 @@ function init()
 
     'contentHighlightTitle
     m.contentHighlightTitle = m.top.findNode("contentHighlightTitle")
+    m.contentHighlightTitle.color = "0x72D7EEFF"
 
     'contentHighlightText
     m.contentHighlightText = m.top.findNode("contentHighlightText")
@@ -51,8 +52,23 @@ function init()
     'FocusedChild
     m.top.observeField("FocusedChild","onFocusedChildChanged")
 
+    m.top.observeField("itemContent","populateContentHighlight")
+
     m.top.setFocus(true)
 
+    mathObj = Math(5)
+    ? mathObj.add(1) 'prints 6
+    ? mathObj.subtract(1) 'prints 4
+    ? mathObj.multiply(2) 'prints 10
+    ? mathObj.divide(2) 'prints 2.5
+    ? ""
+    ? ""
+
+    mObj = Math(5)
+    ? mathObj.add(1) 'prints 6
+    ? mathObj.subtract(1) 'prints 4
+    ? mathObj.multiply(2) 'prints 10
+    ? mathObj.divide(2) 'prints 2.5
 
 end function
 
@@ -71,6 +87,7 @@ sub setHomeScreenContent(ev)
             rowListContent = CreateObject("roSGNode","ContentNode")
             rowListContent.appendChild(data)
             m.rowList.content = rowListContent
+            m.contentRowsLabel.visible = true
         else if m.rowList.content <> invalid and m.rowList.content.getChild(0) <> invalid
             m.rowList.content.getChild(0).appendChildren(data.getChildren(-1,0))
         end if
@@ -80,7 +97,7 @@ sub setHomeScreenContent(ev)
     end if
     
     item = data.getchildren(-1,0)[0]
-    populateContentHighlight(item)
+    m.top.itemContent = item
 end sub
 
 sub onItemSelectedChanged(ev)
@@ -110,27 +127,32 @@ sub onItemFocusedChanged(ev)
     focusedRow = ev.getData()[0]
     focusedItem = ev.getData()[1]
     numberOfItemsInRow = content.getChild(focusedRow).getChildCount()
-    if focusedItem > numberOfItemsInRow - 230 
-        previousPage = m.global.page.toInt()
-        nextPage = (previousPage + 1).toStr()
-        m.global.page = nextPage
-        'print"nextPage: "nextPage
-        callParams = {page: nextPage} 'next page
-        executeShowsAPICall(callParams)
-    end if
-
+    ' if focusedItem > numberOfItemsInRow '- 30 
+    '     previousPage = m.global.page.toInt()
+    '     nextPage = (previousPage + 1).toStr()
+    '     m.global.page = nextPage
+    '     'print"nextPage: "nextPage
+    '     callParams = {page: nextPage} 'next page
+    '     executeShowsAPICall(callParams)
+    ' end if
     item = content.getchildren(-1,0)[0].getchildren(-1,0)[focusedItem]
-    populateContentHighlight(item)
+    
+    m.top.itemContent = item
+    populateContentHighlight()
 end sub
 
-sub populateContentHighlight(item)
-    descriptionStr = item.summary
+sub populateContentHighlight()
+    item = m.top.itemContent
+    if item <> invalid then
+        descriptionStr = item.summary
+    end if
+
     'code to delete html tags present in description text
     comboReplaceCases = [["<b>",""], ["</b>",""], ["<p>",""], ["</p>",""], ["<i>",""], ["</i>",""], ["<br />",""], ["/"," "]]
     for each combo in comboReplaceCases
         descriptionStr = descriptionStr.replace(combo[0],combo[1])
     end for
-    
+    item = m.top.itemContent
     m.contentHighlightTitle.text = item?.name 
     m.contentHighlightText.text = descriptionStr
     m.contentHighlightImage.uri = item?.image?.original
