@@ -10,9 +10,10 @@ sub init()
     m.assetDescriptionText = m.top.findNode("assetDescriptionText")
     m.assetDescription = m.top.findNode("assetDescription")
 
-    ' m.playButton = m.top.findNode("playButton")
+    m.playButton = m.top.findNode("playButton")
+    m.playButton.focusable = true
     ' m.playButton.visible = false
-    ' m.playButton.observeField("buttonSelected", "onShowVodButtonSelected")
+    m.playButton.observeField("buttonSelected", "onButtonSelectedChanged")
     
     m.actorsRowList = m.top.findNode("actorsRowList")
     ' m.actorsRowList.focusBitmapUri = "pkg:/images/backgrounds/nav_focus_off_footprint_fhd.9.png"
@@ -30,7 +31,7 @@ sub init()
     m.actorsRowList.observeField("rowItemSelected","onActorsRowListItemSelectedChanged")
 
     'FocusedChild
-    'm.top.observeField("FocusedChild","onFocusedChildChanged")
+    m.top.observeField("FocusedChild","onFocusedChildChanged")
 
 end sub
 
@@ -48,7 +49,7 @@ end function
 ' @param no params
 ' @return no params
 ' *************************************************
-sub onFocusedChildChanged() 
+sub onFocusedChildChanged(ev) 
     m.top.setfocus(true)
 end sub
 
@@ -92,7 +93,7 @@ sub setActorsRowListContent(ev)
     m.actorsRowList.content.addfields({"contentType":"actorsRowListContent"})
     m.actorsRowList.visible = true
     m.actorsRowList.focusable = true
-    m.actorsRowList.setFocus(true)
+    'm.actorsRowList.setFocus(true)
 end sub
 
 ' *************************************************
@@ -103,6 +104,7 @@ end sub
 sub onButtonSelectedChanged(ev)
     if m.top.getParent() <> invalid then
         m.top.getParent().playContent = true
+        m.top.getParent().selectedContentNode = m.top.itemContent
     end if
 end sub
 
@@ -158,3 +160,32 @@ sub setContent(ev)
     end if
     
 end sub
+
+sub onPlayButtonSelected() 
+    stop
+    m.top.getParent().playContent = true
+end sub
+
+function onKeyEvent(key as String, press as Boolean) as Boolean
+    
+    handled = false
+    if press then
+
+        if (m.actorsRowList.hasFocus() and key = "up")
+            m.actorsRowList.focusable = false
+            m.actorsRowList.setFocus(false)
+            m.playButton.focusable = true
+            m.playButton.setFocus(true)
+
+            handled = true
+        else if (m.playButton.hasFocus() and key = "down")
+            m.playButton.focusable = false
+            m.playButton.setFocus(false)
+            m.actorsRowList.focusable = true
+            m.actorsRowList.setFocus(true)
+
+            handled = true
+        end if
+    end if
+    return handled
+  end function

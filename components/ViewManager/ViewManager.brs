@@ -12,20 +12,22 @@ sub init()
     m.viewStack = [] 'Field to store the previous screen in the app
     showView("HomeScreenView") 'Show/Create the first view of the app
     m.top.observeField("selectedContentNode","onSelectedContentNodeChanged")
-    m.top.observeField("playContent","onPlayContentChanged")
+    'm.top.observeField("playContent","onPlayContentChanged")
 end sub
 
 sub onSelectedContentNodeChanged(ev)
-    
+
     if ev.getData().character <> invalid and ev.getData().person <> invalid 
-        
         showView("FullScreenView",ev.getData()) 'display the fullscreen view
-    else     
+    else if m.top.playContent = true and m.top.selectedContentNode <> invalid and m.top.getchildren(-1,0)[0].subtype() = "DetailView"
+        showView("VideoView",ev.getData())
+    else
         showView("DetailView",ev.getData())
     end if
 end sub
 
 sub onPlayContentChanged(ev)
+    stop
     showView("VideoView", ev.getData())
 end sub
 

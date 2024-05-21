@@ -10,6 +10,7 @@ function Math(value)
             ?"m.value: " m.value
             ?"m.add: " m.add
 			?"m: " m
+            
 			?"type(m): " type(m)
             
             result = m.value + operationValue 
@@ -32,19 +33,20 @@ function Math(value)
         end function
 	}
 
-    results = {
+    ' results = {
 
-		value: value
-		result1: function() 
-            return "result" 
-        end function
-        result2: function() 
-            return {"result": {"sd": "wer"}} 
-        end function
-	}
+	' 	value: value
+	' 	result1: function() 
+    '         return "result" 
+    '     end function
+    '     result2: function() 
+    '         return {"result": {"sd": "wer"}} 
+    '     end function
+	' }
 
-    result = {"mathObj": mathObj, "results": results}
-    return result
+    ' result = {"mathObj": mathObj, "results": results}
+    ' result = {"mathObj": mathObj}
+    return mathObj
 end function
 
 function xmlToJson1() 

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 
 <component name="HomeScreenView" extends="Group"> 
+<script type="text/brightscript" uri="pkg:/components/Shared/theme.brs" />
+<script type="text/brightscript" uri="pkg:/components/Support/Functions.brs" />
 
 <interface> 
 	<field id = "movieIndex" type = "string" alwaysnotify="true" onChange = "onMovieIndexChanged"/>

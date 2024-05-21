@@ -6,7 +6,7 @@
         <field id = "itemContent" type = "node" alwaysnotify="true" onChange = "setContent"/>
     </interface>
 
-    <script type="text/brightscript" uri="pkg:/components/Views/DetailViews/DetailView.brs" />
+    <script type="text/brightscript" uri="pkg:/components/Views/DetailView/DetailView.brs" />
 
     <children>
 
@@ -18,15 +18,18 @@
                     height="720"
                     translation="[0,0]" />
             </Group>
+            
+        <Poster 
+            id = "assetImage" 
+            width = "235" 
+            height = "300" 
+            translation = "[75,75]" 
+            uri = "m.top.itemContent.poster_path"/>
+
+        
 
         <Group id="detailsGroup" translation = "[0,0]">
             
-            <Poster 
-                id = "assetImage" 
-                width = "235" 
-                height = "300" 
-                translation = "[75,75]" 
-                uri = "m.top.itemContent.poster_path"/>
             
             <Label 
                 id = "assetTitle" 
@@ -59,16 +62,16 @@
                 vertAlign = "top"
                 wrap = "true"/>
             
-            <!-- <PlayButton 
-                    id = "playButton"
-                    text = ""
-                    focusedTextColor = "0x262626ff"
-                    height = "70"
-                    minwidth = "50"
-                    maxwidth = "100"
-                    focusedIconUri = "pkg:/images/playback_buttons/btt_play_white.png"
-                    iconUri = "pkg:/images/playback_buttons/btt_play_white.png"
-                    translation = "[135,200]" /> -->
+            <PlayButton 
+                id = "playButton"
+                text = ""
+                focusedTextColor = "0x262626ff"
+                height = "70"
+                minwidth = "50"
+                maxwidth = "100"
+                focusedIconUri = "pkg:/images/playback_buttons/btt_play_white.png"
+                iconUri = "pkg:/images/playback_buttons/btt_play_white.png"
+                translation = "[365,308]" />
 
         </Group>
 

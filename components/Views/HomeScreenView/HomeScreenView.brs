@@ -56,6 +56,19 @@ function init()
 
     m.top.setFocus(true)
 
+    mathObj = Math(5)
+    ? mathObj.add(1) 'prints 6
+    ? mathObj.subtract(1) 'prints 4
+    ? mathObj.multiply(2) 'prints 10
+    ? mathObj.divide(2) 'prints 2.5
+    ? ""
+    ? ""
+
+    mObj = Math(5)
+    ? mathObj.add(1) 'prints 6
+    ? mathObj.subtract(1) 'prints 4
+    ? mathObj.multiply(2) 'prints 10
+    ? mathObj.divide(2) 'prints 2.5
 
 end function
 
