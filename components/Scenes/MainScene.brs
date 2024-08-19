@@ -10,6 +10,6 @@ end sub
 
 sub createFirstScreen()
 'Create screen
-m.ViewManager = m.top.CreateChild("ViewManager") 'Add view which is the manager of views
-m.ViewManager.setFocus(true) 'Set Focus in the View
+    m.ViewManager = m.top.CreateChild("ViewManager") 'Add view which is the manager of views
+    m.ViewManager.setFocus(true) 'Set Focus in the View
 end sub

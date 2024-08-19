@@ -1,5 +1,10 @@
 sub init()
+    m.top.id = "DetailView"
+    m.top.setFocus(true)
     'print "Init AssetDetailView"
+
+    m.detailsGroup = m.top.findNode("detailsGroup")
+
     'Actors Label
     m.actorsLabel = m.top.findNode("actorsLabel")
     m.actorsLabel.font.size=30
@@ -11,7 +16,7 @@ sub init()
     m.assetDescription = m.top.findNode("assetDescription")
 
     m.playButton = m.top.findNode("playButton")
-    m.playButton.focusable = true
+    ' m.playButton.focusable = true
     ' m.playButton.visible = false
     m.playButton.observeField("buttonSelected", "onButtonSelectedChanged")
     
@@ -27,7 +32,7 @@ sub init()
     executeCastAPICall(movieIndex)
 
     'RowList
-    m.actorsRowList = m.top.findNode("actorsRowList")
+    'm.actorsRowList = m.top.findNode("actorsRowList")
     m.actorsRowList.observeField("rowItemSelected","onActorsRowListItemSelectedChanged")
 
     'FocusedChild
@@ -46,11 +51,15 @@ end function
 
 ' *************************************************
 ' Function that sets focus
-' @param no params
+' @param - event
 ' @return no params
 ' *************************************************
 sub onFocusedChildChanged(ev) 
-    m.top.setfocus(true)
+
+    if m.detailsGroup.isInFocusChain() then
+        m.playbutton.setFocus(true)
+    end if
+
 end sub
 
 ' *************************************************
@@ -92,8 +101,8 @@ sub setActorsRowListContent(ev)
     m.actorsRowList.content = actorsRowListContent
     m.actorsRowList.content.addfields({"contentType":"actorsRowListContent"})
     m.actorsRowList.visible = true
-    m.actorsRowList.focusable = true
-    'm.actorsRowList.setFocus(true)
+    ' m.actorsRowList.focusable = true
+    ' m.actorsRowList.setFocus(true)
 end sub
 
 ' *************************************************
@@ -162,7 +171,6 @@ sub setContent(ev)
 end sub
 
 sub onPlayButtonSelected() 
-    stop
     m.top.getParent().playContent = true
 end sub
 
@@ -170,7 +178,6 @@ function onKeyEvent(key as String, press as Boolean) as Boolean
     
     handled = false
     if press then
-
         if (m.actorsRowList.hasFocus() and key = "up")
             m.actorsRowList.focusable = false
             m.actorsRowList.setFocus(false)

@@ -47,7 +47,7 @@
 
             <Label 
                 id = "assetDescription" 
-                translation = "[365,120]"
+                translation = "[365,110]"
                 font="font:SmallSystemFont"
                 text = "Description:"
                 color = "0x72D7EEFF"/>
@@ -56,7 +56,7 @@
                 id = "assetDescriptionText" 
                 width = "800"
                 height = "300" 
-                translation = "[365,170]"
+                translation = "[365,140]"
                 font="font:SmallestSystemFont"
                 horizAlign = "left"
                 vertAlign = "top"

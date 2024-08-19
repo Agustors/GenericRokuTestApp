@@ -69,7 +69,6 @@ function init()
     ? mathObj.subtract(1) 'prints 4
     ? mathObj.multiply(2) 'prints 10
     ? mathObj.divide(2) 'prints 2.5
-
 end function
 
 sub executeShowsAPICall(callParams)

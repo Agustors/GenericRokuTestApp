@@ -8,7 +8,6 @@ sub init()
 
   sub showcontent()
     itemContentArray = {}
-    'stop
     if view = "SearchView"
       showSearchViewContent()
     else 

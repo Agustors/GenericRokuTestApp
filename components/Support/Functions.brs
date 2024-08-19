@@ -136,7 +136,6 @@ function xmlToJson()
                 json.component.AddReplace(item.getname(), "")
             end if
             i++
-            'stop
         end for
         ?"json " json
         ?""
@@ -166,7 +165,6 @@ function xmlToJson()
     '#############################################################################################
     'using FormatJson(json as Object, flags = 0 as Integer)
     formatedJson = FormatJson(rsp.GenXML(0), i)
-    ' stop
     '#############################################################################################
 
 

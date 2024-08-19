@@ -27,7 +27,6 @@ sub onSelectedContentNodeChanged(ev)
 end sub
 
 sub onPlayContentChanged(ev)
-    stop
     showView("VideoView", ev.getData())
 end sub
 

@@ -1,7 +1,9 @@
 sub init()
 
     m.top.setFields({
-        showFocusFootprint : "true"
+        showFocusFootprint : "true",
+        focusable : "true",
+        setFocus : "true"
     })
 
 end sub
