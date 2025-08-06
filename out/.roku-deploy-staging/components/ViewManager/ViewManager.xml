@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<component name = "ViewManager" extends = "Group">
-    <interface>
-        <field id="playContent" type="boolean" alwaysNotify="true"/>
-        <field id="selectedContentNode" type="node" alwaysNotify="true"/>
-    </interface>
-    <script type = "text/brightscript" uri="./ViewManager.brs"/>
-</component>
