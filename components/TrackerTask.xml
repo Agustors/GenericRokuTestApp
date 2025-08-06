@@ -2002,7 +2002,7 @@ Sub init()
     m.logger = RALE_Logger(m.config.defaultLogLevel, m.config.logFormat)
     m.socketConnection = RALE_SocketConnection()
     m.sceneBG = m.top.GetScene().getChild(0)
-    m.raleVersion = "3.2.0"
+    m.raleVersion = "3.3.1"
     m.sessionId = CreateObject("roDeviceInfo").GetRandomUUID()
 
     m.logger.info("Roku Advanced Layout Editor v." + m.raleVersion)

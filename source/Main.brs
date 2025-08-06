@@ -4,8 +4,8 @@ sub Main()
     m.port = CreateObject("roMessagePort")
     screen.setMessagePort(m.port)
 
-    'Create a scene and load /components/helloworld.xml'
-    scene = screen.CreateScene("MainScene")
+    'Create a scene
+    screen.CreateScene("MainScene")
     screen.show()
 
     while(true)
@@ -16,4 +16,3 @@ sub Main()
         end if
     end while
 end sub
-

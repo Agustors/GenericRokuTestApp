@@ -34,15 +34,15 @@ function onKeyEvent(key as String, press as Boolean) as Boolean
   handled = false
   if press then
     if (key = "back") then
-        handled = restorePreviousView()
+        handled = true
+        restorePreviousView()
     else if (key = "options") then
-        handled = showView("SearchView")
-        m.currentView.getchildren(-1,0)[2].getchildren(-1,0)[0].focusable = true 'todo refactor needed
-        'm.currentView.getchildren(-1,0)[2].focusable = true 
-        'm.currentView.getchildren(-1,0)[4].focusedChild.setFocus(true)
+        handled = true
+        showView("SearchView")
+        m.currentView.getchildren(-1,0)[2].getchildren(-1,0)[0].focusable = true 'todo, refactor needed
     end if
   end if
-  return true
+  return handled
 end function
 
 function showView(viewName, itemContent = invalid)

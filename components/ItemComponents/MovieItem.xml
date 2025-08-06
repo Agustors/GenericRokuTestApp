@@ -3,7 +3,7 @@
 <component name = "RowListItem" extends = "Group" initialFocus="itemPoster">
  
   <interface> 
-    <field id = "itemContent" type = "node" alwaysnotify="true" onChange = "showcontent"/>
+    <field id = "itemContent" type = "node" alwaysnotify="true" onChange = "showContent"/>
     <field id = "focusPercent" type = "float" onChange = "showfocus"/> 
   </interface>
  

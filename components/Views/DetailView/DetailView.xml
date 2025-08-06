@@ -67,11 +67,11 @@
                 text = ""
                 focusedTextColor = "0x262626ff"
                 height = "70"
-                minwidth = "50"
-                maxwidth = "100"
+                minWidth = "50"
+                maxWidth = "100"
                 focusedIconUri = "pkg:/images/playback_buttons/btt_play_white.png"
                 iconUri = "pkg:/images/playback_buttons/btt_play_white.png"
-                translation = "[365,308]" />
+                translation = "[148,198]" />
 
         </Group>
 

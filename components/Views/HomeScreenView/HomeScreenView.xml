@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 
 <component name="HomeScreenView" extends="Group"> 
-<script type="text/brightscript" uri="pkg:/components/Shared/theme.brs" />
-<script type="text/brightscript" uri="pkg:/components/Support/Functions.brs" />
 
 <interface> 
 	<field id = "movieIndex" type = "string" alwaysnotify="true" onChange = "onMovieIndexChanged"/>
@@ -94,9 +92,9 @@
 		uri="pkg:/images/stars/search.png"
 		width="75.0"
 		height="75.0"
-		translation="[440,425]" />
+		translation="[440,425]" /> -->
 
-	<ScrollingLabel 
+	<!-- <ScrollingLabel 
 		id = "exampleScrollingLabel" 
 		maxWidth = "300" 
 		height = "0" 
@@ -105,13 +103,12 @@
 		horizAlign = "left" 
 		vertAlign = "top" /> -->
 	
-	<!-- <SimpleLabel
+	<SimpleLabel
 		id="testLabel"
-		font="fontUri:MediumBoldSystemFont"
 		text = "Press * to search videos!"
 		horizOrigin = "left"
 		vertOrigin = "baseline"
-		translation="[500,560]" /> -->
+		translation="[500,660]" />
 
 	<!-- <Button 
 		id = "searchButton"

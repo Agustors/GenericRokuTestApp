@@ -29,9 +29,10 @@ function init()
     m.apiTask.observeField("content","setHomeScreenContent")
 
     'Initial Call Parameters
-    initialCallparams = {page: "1"}
-    m.global.addfields({page: "1"})
-    executeShowsAPICall(initialCallparams)
+    initialCallParams = {page: "1"}
+    m.global.addFields({page: "1"})
+    executeShowsAPICall(initialCallParams)
+
 
     ' 'Search button
     ' example = m.top.findNode("searchButton")
@@ -56,19 +57,6 @@ function init()
 
     m.top.setFocus(true)
 
-    mathObj = Math(5)
-    ? mathObj.add(1) 'prints 6
-    ? mathObj.subtract(1) 'prints 4
-    ? mathObj.multiply(2) 'prints 10
-    ? mathObj.divide(2) 'prints 2.5
-    ? ""
-    ? ""
-
-    mObj = Math(5)
-    ? mathObj.add(1) 'prints 6
-    ? mathObj.subtract(1) 'prints 4
-    ? mathObj.multiply(2) 'prints 10
-    ? mathObj.divide(2) 'prints 2.5
 end function
 
 sub executeShowsAPICall(callParams)
@@ -123,9 +111,9 @@ sub onItemFocusedChanged(ev)
         return
     end if
     content = ev.getRoSGNode().content
-    focusedRow = ev.getData()[0]
+    ' focusedRow = ev.getData()[0]
     focusedItem = ev.getData()[1]
-    numberOfItemsInRow = content.getChild(focusedRow).getChildCount()
+    'numberOfItemsInRow = content.getChild(focusedRow).getChildCount()
     ' if focusedItem > numberOfItemsInRow '- 30 
     '     previousPage = m.global.page.toInt()
     '     nextPage = (previousPage + 1).toStr()
@@ -134,7 +122,7 @@ sub onItemFocusedChanged(ev)
     '     callParams = {page: nextPage} 'next page
     '     executeShowsAPICall(callParams)
     ' end if
-    item = content.getchildren(-1,0)[0].getchildren(-1,0)[focusedItem]
+    item = content.getChildren(-1,0)[0].getChildren(-1,0)[focusedItem]
     
     m.top.itemContent = item
     populateContentHighlight()

@@ -149,7 +149,7 @@ end sub
 ' @param - event
 ' @return no params
 ' *************************************************
-sub onButtonSelectedChanged(ev)
+sub onButtonSelectedChanged()
     if m.top.getParent() <> invalid then
         m.top.getParent().playContent = true
     end if

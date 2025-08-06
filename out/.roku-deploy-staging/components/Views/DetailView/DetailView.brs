@@ -1,0 +1,198 @@
+sub init()
+    m.top.id = "DetailView"
+    m.top.setFocus(true)
+    'print "Init AssetDetailView"
+
+    m.detailsGroup = m.top.findNode("detailsGroup")
+
+    'Actors Label
+    m.actorsLabel = m.top.findNode("actorsLabel")
+    m.actorsLabel.font.size=30
+    m.actorsLabel.color="0x72D7EEFF"
+
+    m.assetTitleText = m.top.findNode("assetTitleText")
+    m.assetImage = m.top.findNode("assetImage")
+    m.assetDescriptionText = m.top.findNode("assetDescriptionText")
+    m.assetDescription = m.top.findNode("assetDescription")
+
+    m.playButton = m.top.findNode("playButton")
+    ' m.playButton.focusable = true
+    ' m.playButton.visible = false
+    m.playButton.observeField("buttonSelected", "onButtonSelectedChanged")
+    
+    m.actorsRowList = m.top.findNode("actorsRowList")
+    ' m.actorsRowList.focusBitmapUri = "pkg:/images/backgrounds/nav_focus_off_footprint_fhd.9.png"
+    m.actorsRowList.focusBitmapUri = "pkg:/images/backgrounds/button_topnav_focused_fhd.9.png"
+
+    'ApiTask
+    m.apiTask = CreateObject("roSGNode","ApiTask")
+    m.apiTask.observeField("content","setActorsRowListContent")
+    
+    movieIndex = onCallParamsMovieIndexChanged()
+    executeCastAPICall(movieIndex)
+
+    'RowList
+    'm.actorsRowList = m.top.findNode("actorsRowList")
+    m.actorsRowList.observeField("rowItemSelected","onActorsRowListItemSelectedChanged")
+
+    'FocusedChild
+    m.top.observeField("FocusedChild","onFocusedChildChanged")
+
+end sub
+
+' *************************************************
+' Function that returns movieIndex
+' @param no params
+' @return - movieIndex
+' *************************************************
+function onCallParamsMovieIndexChanged() 
+    return m.global.movieIndex
+end function
+
+' *************************************************
+' Function that sets focus
+' @param - event
+' @return no params
+' *************************************************
+sub onFocusedChildChanged() 
+
+    if m.detailsGroup.isInFocusChain() then
+        m.playbutton.setFocus(true)
+    end if
+
+end sub
+
+' *************************************************
+' Function that executes Cast api call with movieIndex param
+' @param - movieIndex
+' @return no params
+' *************************************************
+sub executeCastAPICall(movieIndex)
+    callParams = {movieIndex: movieIndex}
+    m.apiTask.callID = "Cast"
+    m.apiTask.callParams = callParams
+    m.apiTask.control = "RUN"
+end sub
+
+' *************************************************
+' Sub that sets full Screen content according to Actor's RowList ItemSelected
+' @param - event
+' @return no params
+' *************************************************
+sub onActorsRowListItemSelectedChanged(ev)
+    content = ev.getRoSGNode().content
+    row = ev.getData()[0]
+    item = ev.getData()[1]
+    selectedItemContent = content.getChild(row).getChild(item)
+    if content <> invalid and selectedItemContent <> invalid and m.top.getParent() <> invalid then
+        m.top.getParent().selectedContentNode = selectedItemContent
+    end if
+end sub
+
+' *************************************************
+' Sub that sets ActorsRowList content
+' @param - event
+' @return no params
+' *************************************************
+sub setActorsRowListContent(ev)
+    data = ev.getData()
+    actorsRowListContent = CreateObject("roSGNode","ContentNode")
+    actorsRowListContent.appendChild(data)
+    m.actorsRowList.content = actorsRowListContent
+    m.actorsRowList.content.addfields({"contentType":"actorsRowListContent"})
+    m.actorsRowList.visible = true
+    ' m.actorsRowList.focusable = true
+    ' m.actorsRowList.setFocus(true)
+end sub
+
+' *************************************************
+' Sub to play VOD content (work in progress)
+' @param - event
+' @return no params
+' *************************************************
+sub onButtonSelectedChanged()
+    if m.top.getParent() <> invalid then
+        m.top.getParent().playContent = true
+        m.top.getParent().selectedContentNode = m.top.itemContent
+    end if
+end sub
+
+' *************************************************
+' Sub that sets content of DetailView
+' @param - event
+' @return no params
+' *************************************************
+sub setContent(ev)
+    data = ev.getData()
+    m.top.itemContent = data
+    
+    if data.content <> invalid and data.content.person <> invalid and data.content.character <> invalid and type(data.content.person) = "roAssociativeArray" and type(data.content.character) = "roAssociativeArray"
+        itemContentArray = {}
+        itemContentArray.data = {
+            title: data.content.person.name,
+            poster: data.content.person.image.medium,
+        }
+    else
+        'obtain correct description
+        if data.DoesExist("summary") then
+            descriptionStr = data.summary
+            content = data
+        else if data.DoesExist("show") then
+            descriptionStr = data.show.summary
+            content = data.show
+        end if
+            
+        'code to delete html tags present in description text
+        comboReplaceCases = [["<b>",""], ["</b>",""], ["<p>",""], ["</p>",""], ["<i>",""], ["</i>",""], ["<br />",""], ["/"," "]]
+        for each combo in comboReplaceCases
+            descriptionStr = descriptionStr.replace(combo[0],combo[1])
+        end for
+        
+        itemContentArray = {}
+        itemContentArray.data = {
+            title: content.name,
+            poster: content.image.original,
+            description: descriptionStr
+        }
+    end if
+    
+    m.assetTitleText.text = itemContentArray.data.title
+    m.assetImage.uri = itemContentArray.data.poster
+    if itemContentArray.data.description = invalid
+        m.assetDescriptionText.text = ""
+    else
+        m.assetDescriptionText.text = itemContentArray.data.description
+    end if
+    
+    if itemContentArray.data.description = invalid or itemContentArray.data.description = ""
+        m.assetDescriptionText.text = "Lorem Ipsum is simply dummy text of the 'printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown 'printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+    end if
+    
+end sub
+
+sub onPlayButtonSelected() 
+    m.top.getParent().playContent = true
+end sub
+
+function onKeyEvent(key as String, press as Boolean) as Boolean
+    
+    handled = false
+    if press then
+        if (m.actorsRowList.hasFocus() and key = "up")
+            m.actorsRowList.focusable = false
+            m.actorsRowList.setFocus(false)
+            m.playButton.focusable = true
+            m.playButton.setFocus(true)
+
+            handled = true
+        else if (m.playButton.hasFocus() and key = "down")
+            m.playButton.focusable = false
+            m.playButton.setFocus(false)
+            m.actorsRowList.focusable = true
+            m.actorsRowList.setFocus(true)
+
+            handled = true
+        end if
+    end if
+    return handled
+  end function

@@ -54,7 +54,7 @@ end function
 ' @param - event
 ' @return no params
 ' *************************************************
-sub onFocusedChildChanged(ev) 
+sub onFocusedChildChanged() 
 
     if m.detailsGroup.isInFocusChain() then
         m.playbutton.setFocus(true)
@@ -110,7 +110,7 @@ end sub
 ' @param - event
 ' @return no params
 ' *************************************************
-sub onButtonSelectedChanged(ev)
+sub onButtonSelectedChanged()
     if m.top.getParent() <> invalid then
         m.top.getParent().playContent = true
         m.top.getParent().selectedContentNode = m.top.itemContent

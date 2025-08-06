@@ -7,7 +7,7 @@
     </interface>
 
     <script type="text/brightscript" uri="pkg:/components/Views/SearchView/SearchView.brs"/>
-    <script type="text/brightscript" uri="pkg:/components/Support/Functions.brs"/>
+    <!-- <script type="text/brightscript" uri="pkg:/components/Support/Functions.brs"/> -->
 
     <children>
 

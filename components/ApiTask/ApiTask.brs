@@ -8,9 +8,9 @@ sub init()
         m.baseUrl = fileInJson.API_BASE_URL
         m.posterPathBaseUrl = fileInJson.POSTER_PATH_BASE_URL 
     else
-        m.baseUrl = ""
+        m.baseUrl = "https://api.tvmaze.com"
     end if
-    m.top.functionName = "getcontent"
+    m.top.functionName = "getContent"
 end sub
 
 ' *************************************************
@@ -18,9 +18,9 @@ end sub
 ' @param no params
 ' @return no return
 ' *************************************************
-sub getcontent()
-    print"m.top.callParams.movieIndex: "m.top.callParams.movieIndex
-    print"m.top.callParams.searchString: "m.top.callParams.searchString
+sub getContent()
+    'print"m.top.callParams.movieIndex: "m.top.callParams.movieIndex
+    'print"m.top.callParams.searchString: "m.top.callParams.searchString
     
     if m.top.callParams.DoesExist("movieIndex")
         apiCallConfig = getAPICallConfig(m.top.callId, m.top.callParams.movieIndex)
@@ -32,11 +32,11 @@ sub getcontent()
     if apiCallConfig = invalid then return 'Avoid crash the app if callId is not set properly
 
     'ContentType indicates if we will have a list of items of apiCallConfig.ContentNodeType or just an item of apiCallConfig.ContentNodeType 
-    if apiCallConfig.contentType = "ContentNodeList" then
-        content = createObject("roSGNode", "ContentNode")
-    else
-        content = createObject("roSGNode", apiCallConfig.ContentNodeType)
-    end if
+    ' if apiCallConfig.contentType = "ContentNodeList" then
+    '     content = createObject("roSGNode", "ContentNode")
+    ' else
+    '     content = createObject("roSGNode", apiCallConfig.ContentNodeType)
+    ' end if
 
     urlTransferObj = createObject("roUrlTransfer")
     
@@ -70,16 +70,15 @@ sub getcontent()
 
     urlTransferObj.InitClientCertificates()
     urlTransferObj.setUrl(m.baseUrl+apiCallConfig.endpoint+parameters)
-    ?"m.baseUrl+apiCallConfig.endpoint+parameters: " m.baseUrl+apiCallConfig.endpoint+parameters
+    '?"m.baseUrl+apiCallConfig.endpoint+parameters: " m.baseUrl+apiCallConfig.endpoint+parameters
     
     response = urlTransferObj.getToString()
     'print"response: " response
-    
     if response <> invalid then 
         
         jsonResponse = parseJSON(response)
         response = invalid
-        print"jsonResponse: "jsonResponse
+        'print"jsonResponse: "jsonResponse
     end if
     'm.top.content = content
         PopularMoviesRow = createObject("roSGNode", "ContentNode")
@@ -88,13 +87,14 @@ sub getcontent()
             child = PopularMoviesRow.CreateChild("ContentNode")
             child.addFields(item)
         end for
+        '?"child: "child
         m.top.content = PopularMoviesRow
         
         'test how to send which view we have at the moment
         ' if jsonResponse[0].show <> invalid
         '     m.top.view = "SearchView"
         ' end if
-        print"m.top.content: "m.top.content
+        'print"m.top.content: "m.top.content
 
 end sub
 

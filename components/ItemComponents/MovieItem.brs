@@ -1,12 +1,12 @@
 sub init()
     m.top.id = "RowListItem"
-    m.itemposter = m.top.findNode("itemPoster") 
-    m.itemmask = m.top.findNode("itemMask")
+    m.itemPoster = m.top.findNode("itemPoster") 
+    m.itemMask = m.top.findNode("itemMask")
     m.itemLabel = m.top.findNode("itemLabel")
 
   end sub
 
-  sub showcontent()
+  sub showContent()
     itemContentArray = {}
     if m.top.itemContent.image <> invalid and m.top.itemContent.name <> invalid 'm.top.itemContent.contentType <> invalid and m.top.itemContent.contentType = "popularMoviesRowListContent"
         itemContentArray.data = {
