@@ -6,12 +6,14 @@ sub init()
     m.videoOptionsButtons = m.top.findNode("videoOptionsButtons")
     m.videoOptionsButtons = m.top.findNode("videoOptionsButtons")
     'm.videoOptionsButtons.focusBitmapUri = "pkg:/images/backgrounds/button_topnav_focused_fhd.9.png"
+    'm.videoOptionsButtons.focusBitmapUri = "pkg:/images/backgrounds/button_topnav_focused_fhd.9.png"
 
     'RowList
     m.rowList = m.top.findNode("popularMoviesRowList")
 
     m.top.setFocus(true)
 end sub
+
 
 sub setContent()
     videocontent = createObject("RoSGNode", "ContentNode")
